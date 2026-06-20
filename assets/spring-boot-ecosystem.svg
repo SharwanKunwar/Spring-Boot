@@ -1,0 +1,89 @@
+<svg viewBox="0 0 1268 571" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="1268" height="571" fill="#0a0a0a"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#39ff6a"/>
+    </marker>
+  </defs>
+
+  <g stroke="#39ff6a" stroke-width="2.5" fill="none">
+    <!-- Client -->
+    <rect x="95" y="60" width="160" height="65" rx="16"/>
+    <!-- SpringBoot Application -->
+    <rect x="368" y="33" width="270" height="130" rx="20"/>
+    <!-- Spring Data JPA -->
+    <ellipse cx="758" cy="92" rx="68" ry="58"/>
+    <!-- Hibernate -->
+    <ellipse cx="943" cy="92" rx="80" ry="40"/>
+    <!-- JDBC -->
+    <ellipse cx="1110" cy="92" rx="52" ry="40"/>
+    <!-- DB -->
+    <rect x="1065" y="200" width="115" height="90" rx="14"/>
+
+    <!-- Spring MVC -->
+    <rect x="230" y="237" width="105" height="80" rx="14"/>
+    <!-- Spring Security -->
+    <rect x="378" y="237" width="120" height="80" rx="14"/>
+    <!-- Spring AOP -->
+    <rect x="540" y="237" width="120" height="80" rx="14"/>
+    <!-- Spring Data -->
+    <rect x="700" y="237" width="116" height="80" rx="14"/>
+
+    <!-- Spring Core bar -->
+    <rect x="207" y="450" width="610" height="70" rx="14"/>
+  </g>
+
+  <!-- Connector lines -->
+  <g stroke="#39ff6a" stroke-width="2">
+    <line x1="255" y1="92" x2="362" y2="92" marker-end="url(#arrow)"/>
+    <line x1="638" y1="92" x2="684" y2="92" marker-end="url(#arrow)"/>
+    <line x1="826" y1="92" x2="857" y2="92" marker-end="url(#arrow)"/>
+    <line x1="1023" y1="92" x2="1052" y2="92" marker-end="url(#arrow)"/>
+    <line x1="1110" y1="132" x2="1110" y2="195" marker-end="url(#arrow)"/>
+
+    <!-- branches from SpringBoot Application down to the four modules -->
+    <line x1="430" y1="163" x2="283" y2="232"/>
+    <line x1="475" y1="163" x2="438" y2="232"/>
+    <line x1="555" y1="163" x2="600" y2="232"/>
+    <line x1="600" y1="163" x2="758" y2="232"/>
+
+    <!-- module boxes down to Spring Core -->
+    <line x1="283" y1="317" x2="283" y2="445"/>
+    <line x1="438" y1="317" x2="438" y2="445"/>
+    <line x1="600" y1="317" x2="600" y2="445"/>
+    <line x1="758" y1="317" x2="758" y2="445"/>
+  </g>
+
+  <!-- Labels -->
+  <g fill="#39ff6a" font-size="22" text-anchor="middle">
+    <text x="175" y="100">Client</text>
+
+    <text x="503" y="85" font-size="26" font-weight="600">SpringBoot</text>
+    <text x="503" y="118" font-size="26" font-weight="600">Application</text>
+
+    <text x="758" y="80">Spring</text>
+    <text x="758" y="105">Data</text>
+    <text x="758" y="130">JPA</text>
+
+    <text x="943" y="99">Hibernate</text>
+
+    <text x="1110" y="99">JDBC</text>
+
+    <text x="1122" y="253" font-size="24" font-weight="600">DB</text>
+
+    <text x="283" y="265">Spring</text>
+    <text x="283" y="293">MVC</text>
+
+    <text x="438" y="265">Spring</text>
+    <text x="438" y="293">Security</text>
+
+    <text x="600" y="265">Spring</text>
+    <text x="600" y="293">AOP</text>
+
+    <text x="758" y="265">Spring</text>
+    <text x="758" y="293">Data</text>
+
+    <text x="512" y="492" font-size="24" font-weight="600">Spring Core</text>
+  </g>
+</svg>
