@@ -5,7 +5,7 @@ How a request moves from the client down through Spring's modules to the databas
 ![Spring Boot ecosystem diagram showing Client to SpringBoot Application to Spring Data JPA to Hibernate to JDBC to DB, with SpringBoot Application also branching to Spring MVC, Spring Security, Spring AOP, and Spring Data, all resting on Spring Core](./assets/spring-boot-ecosystem.svg)
 
 <details>
-<summary>Mermaid version (renders natively on GitHub, no image file needed)</summary>
+<summary>Mermaid version </summary>
 
 ```mermaid
 flowchart TD
