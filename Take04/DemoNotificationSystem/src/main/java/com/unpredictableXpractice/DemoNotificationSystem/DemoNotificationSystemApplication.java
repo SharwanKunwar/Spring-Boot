@@ -16,10 +16,10 @@ public class DemoNotificationSystemApplication {
 
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(DemoNotificationSystemApplication.class, args);
-		NotificationServiceHelper n = new PopUpNotificationService();
+		NotificationServiceHelper n = new EmailService();
+		OrderService orderService = new OrderService(n);
+		orderService.placeOrder("Monitor");
 
-		OrderService orderService = new OrderService();
-		orderService.placeOrder(n);
 	}
 
 }
