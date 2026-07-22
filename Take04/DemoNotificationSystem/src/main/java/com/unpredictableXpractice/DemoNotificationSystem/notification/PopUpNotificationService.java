@@ -4,6 +4,6 @@ public class PopUpNotificationService implements NotificationServiceHelper
 {
     @Override
     public void sendNotification() {
-        System.out.println("Sending PopUpNotification...");
+        System.out.println("PopUpNotification sent");
     }
 }
