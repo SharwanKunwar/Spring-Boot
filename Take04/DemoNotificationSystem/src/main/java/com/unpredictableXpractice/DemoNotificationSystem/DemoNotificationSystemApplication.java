@@ -19,7 +19,6 @@ public class DemoNotificationSystemApplication {
 		NotificationServiceHelper n = new EmailService();
 		OrderService orderService = new OrderService(n);
 		orderService.placeOrder("Monitor");
-
 	}
 
 }
