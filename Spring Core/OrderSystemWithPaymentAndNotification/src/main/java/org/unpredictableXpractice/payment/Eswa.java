@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@Qualifier("Stripe")
-public class Stripe implements PaymentServiceHelper
-{
+@Qualifier("Eswa")
+public class Eswa implements PaymentServiceHelper{
     @Override
     public String pay() {
-        return "Stripe";
+        return "Eswa";
     }
 }
