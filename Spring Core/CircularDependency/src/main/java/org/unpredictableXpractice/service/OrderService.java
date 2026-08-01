@@ -1,27 +1,26 @@
 package org.unpredictableXpractice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.unpredictableXpractice.notification.NotificationServiceHelper;
-import org.unpredictableXpractice.payment.PaymentServiceHelper;
+import org.unpredictableXpractice.payment.PaymentService;
 
 @Component
 public class OrderService
 {
-    PaymentServiceHelper payment;
-    NotificationServiceHelper notification;
-
+    PaymentService payment;
 
     @Autowired
-    public OrderService(@Qualifier("Stripe") PaymentServiceHelper payment, @Qualifier("SMS") NotificationServiceHelper notification){
+    public void setPayment(PaymentService payment)
+    {
         this.payment = payment;
-        this.notification = notification;
     }
 
     public void placeOrder(){
-        System.out.println("Placing order...");
-        System.out.println("Payed by "+payment.pay());
-        System.out.println("Sent notification via "+notification.sendNotification());
+        System.out.println("Order placed.");
+        payment.pay();
+    }
+
+    public void getOrderDetails(){
+        System.out.println("Order details.");
     }
 }
