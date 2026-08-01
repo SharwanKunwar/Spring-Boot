@@ -7,13 +7,14 @@ import org.unpredictableXpractice.payment.PaymentService;
 @Component
 public class OrderService
 {
-    PaymentService payment;
-
     @Autowired
-    public void setPayment(PaymentService payment)
-    {
-        this.payment = payment;
-    }
+    private PaymentService payment;
+
+
+//    public OrderService(PaymentService payment)
+//    {
+//        this.payment = payment;
+//    }
 
     public void placeOrder(){
         System.out.println("Order placed.");

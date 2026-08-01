@@ -1,10 +1,12 @@
-package org.unpredictableXpractice.box;
+//package org.unpredictableXpractice.box;
+//
+//public class A
+//{
+//    private B b;
+//
+//    public A(){
+//        this.b = new B();
+//    }
+//}
 
-public class A
-{
-    private B b;
-
-    public A(B b){
-        this.b = b;
-    }
-}
+//These both a and b together cuse stack overflow
