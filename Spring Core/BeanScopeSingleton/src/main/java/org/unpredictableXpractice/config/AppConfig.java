@@ -4,6 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("org.unpredictbleXpractice")
-public class AppConfig {
+@ComponentScan("org.unpredictableXpractice")
+public class AppConfig
+{
 }

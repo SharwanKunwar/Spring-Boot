@@ -11,9 +11,10 @@ public class Main {
     static void main()
     {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-        OrderService order = context.getBean(OrderService.class);
+        OrderService order01 = context.getBean(OrderService.class);
+        OrderService order02 = context.getBean(OrderService.class);
 
-
+        if(order01 == order02) System.out.println("same object coz : look above there is one constructor right. so this is singleton scope");
 
     }
 }
