@@ -1,10 +1,13 @@
 package org.unpredictableXpractice.service;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class OrderService
 {
-    public void placeOrder()
+    public OrderService()
     {
-        System.out.println("Placing order");
+        System.out.println("OrderService created");
     }
 
 }
