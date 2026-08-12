@@ -19,4 +19,9 @@ public class User
         return userProperties.getAge();
     }
 
+    public void display(){
+        System.out.println("Name : " + userProperties.getName());
+        System.out.println("Age : " + userProperties.getAge());
+    }
+
 }
