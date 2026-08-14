@@ -1,212 +1,340 @@
-# CRUD Operations Application
+# Spring Boot CRUD Without Spring Data JPA — Student Management API
 
-This is a simple Spring Boot project for practicing CRUD operations with a `StudentEntity`.
+A reference guide for building CRUD operations in Spring Boot using **`JdbcTemplate`** instead of Spring Data JPA, based on a `Student` entity example. Covers the full layered architecture, `ResponseEntity` usage, and a real-world debugging case with `KeyHolder`.
 
-The current project mainly demonstrates the create flow for a student record. A request comes into the REST controller, moves through the service layer, then reaches a manual repository class. The read, update, and delete operations are planned but not fully implemented yet.
+---
 
-## What This Project Is About
+## Table of Contents
 
-This application is a learning/practice project for understanding how a Spring Boot backend is organized.
+1. [Architecture Overview](#architecture-overview)
+2. [Entity Layer](#entity-layer)
+3. [Repository Layer](#repository-layer)
+4. [Service Layer](#service-layer)
+5. [Controller Layer](#controller-layer)
+6. [Understanding `ResponseEntity`](#understanding-responseentity)
+7. [Bug Fix: JDBC Parameter Order Mismatch](#bug-fix-jdbc-parameter-order-mismatch)
+8. [Bug Fix: `KeyHolder` Multiple Keys Exception](#bug-fix-keyholder-multiple-keys-exception)
+9. [Key Takeaways](#key-takeaways)
 
-It shows:
+---
 
-- How to create a Spring Boot application
-- How to expose REST endpoints with a controller
-- How to pass data from controller to service
-- How to use a repository-style class for database-related work
-- How to define a JPA entity for student data
-- How to configure PostgreSQL and Hibernate
+## Architecture Overview
 
-## Tech Stack
+Without Spring Data JPA, the standard layered flow still applies — only the repository implementation changes (raw SQL instead of auto-generated queries):
 
-- Java 21
-- Spring Boot 4.1.0
-- Spring Web MVC
-- Spring Data JPA
-- PostgreSQL
-- Maven
-- dotenv-java
-
-## Project Structure
-
-```text
-src/main/java/com/unpredictableXpractice/curdOperationsApplication
-├── CurdOperationsApplication.java
-├── controller
-│   └── StudentController.java
-├── entity
-│   └── StudentEntity.java
-├── repository
-│   └── ManualStudentRepository.java
-└── service
-    └── StudentService.java
+```
+Controller → Service → Repository (JdbcTemplate) → Database
 ```
 
-## How The Application Works
+| Layer | Responsibility |
+|---|---|
+| **Controller** | Handles HTTP requests/responses, delegates to service |
+| **Service** | Business logic, orchestrates repository calls |
+| **Repository** | Writes and executes raw SQL via `JdbcTemplate` |
+| **Entity** | Plain data model (POJO) |
 
-### 1. Application Startup
+> **Note:** JPA annotations (`@Entity`, `@Id`, `@GeneratedValue`) are ignored when using plain `JdbcTemplate` — they only take effect when a JPA provider (like Hibernate) scans the class. Keep them only if you may switch to JPA/Hibernate later.
 
-`CurdOperationsApplication.java` starts the Spring Boot application.
+---
 
-It also loads values from a `.env` file using `dotenv-java` and prints those values to the console.
+## Entity Layer
 
-### 2. Student Entity
+```java
+@Entity
+public class StudentEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private int age;
+    private String email;
+    private int rollNo;
+    private String subject;
 
-`StudentEntity.java` represents the student model.
+    public StudentEntity() {
+    } // required no-arg constructor for reflection-based instantiation
 
-Fields:
+    public StudentEntity(String name, int age, String email, int rollNo, String subject) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+        this.rollNo = rollNo;
+        this.subject = subject;
+    }
 
-- `id`
-- `name`
-- `age`
-- `email`
-- `rollNo`
-- `subject`
-
-The class is marked with `@Entity`, so Hibernate can map it to a database table.
-
-### 3. Controller Layer
-
-`StudentController.java` exposes API routes under:
-
-```text
-/api/students
-```
-
-Currently implemented:
-
-```http
-POST /api/students
-```
-
-This endpoint accepts student data in JSON format and sends it to the service layer.
-
-Example request:
-
-```json
-{
-  "name": "Ram",
-  "age": 20,
-  "email": "ram@example.com",
-  "rollNo": 1,
-  "subject": "Math"
+    // standard getters and setters
 }
 ```
 
-Example response:
+**Common mistakes caught:**
+- Missing no-arg constructor — required by JPA and mapping utilities like `BeanPropertyRowMapper` for reflection-based object creation.
+- Forgetting to assign a constructor parameter to its field (e.g. `subject` accepted but never set).
 
-```text
-Student create successfully
+---
+
+## Repository Layer
+
+### Interface
+```java
+public interface StudentRepositoryHandler {
+    StudentEntity save(StudentEntity student);
+    StudentEntity findById(Long id);
+    List<StudentEntity> getAllStudents();
+    void update(StudentEntity student);
+    void deleteById(Long id);
+}
 ```
 
-### 4. Service Layer
+### Implementation (`JdbcTemplate`)
+```java
+@Repository
+public class StudentRepositoryIMP implements StudentRepositoryHandler {
 
-`StudentService.java` contains the business logic.
+    private final JdbcTemplate jdbcTemplate;
 
-Right now it has one method:
+    public StudentRepositoryIMP(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public StudentEntity save(StudentEntity student) {
+        String sql = "INSERT INTO student_entity (name, age, email, roll_no, subject) VALUES (?, ?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, student.getName());
+            ps.setInt(2, student.getAge());
+            ps.setString(3, student.getEmail());
+            ps.setInt(4, student.getRollNo());
+            ps.setString(5, student.getSubject());
+            return ps;
+        }, keyHolder);
+
+        Number id = (Number) keyHolder.getKeys().get("id");
+        student.setId(id.longValue());
+
+        return student;
+    }
+
+    @Override
+    public StudentEntity findById(Long id) {
+        String sql = "SELECT * FROM student_entity WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(StudentEntity.class), id);
+    }
+
+    @Override
+    public List<StudentEntity> getAllStudents() {
+        String sql = "SELECT * FROM student_entity";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(StudentEntity.class));
+    }
+
+    @Override
+    public void update(StudentEntity student) {
+        String sql = "UPDATE student_entity SET name=?, age=?, email=?, roll_no=?, subject=? WHERE id=?";
+        jdbcTemplate.update(sql,
+                student.getName(), student.getAge(), student.getEmail(),
+                student.getRollNo(), student.getSubject(), student.getId());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        String sql = "DELETE FROM student_entity WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
+}
+```
+
+> **Rule of thumb:** SQL `?` placeholder position must exactly match the order of `ps.setXxx(position, value)` calls. Write the SQL column list and the `set` calls in the same visual order to avoid silent data corruption from swapped columns.
+
+---
+
+## Service Layer
 
 ```java
-createStudent(StudentEntity student)
+@Service
+public class StudentService {
+
+    private final StudentRepositoryHandler studentRepository;
+
+    public StudentService(StudentRepositoryHandler studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+    public StudentEntity createStudent(StudentEntity student) {
+        return studentRepository.save(student);
+    }
+
+    public StudentEntity getStudent(Long id) {
+        return studentRepository.findById(id);
+    }
+
+    public List<StudentEntity> getAllStudents() {
+        return studentRepository.getAllStudents();
+    }
+
+    public void updateStudent(StudentEntity student) {
+        studentRepository.update(student);
+    }
+
+    public void deleteStudent(Long id) {
+        studentRepository.deleteById(id);
+    }
+}
 ```
 
-This method receives student data from the controller and passes it to the repository.
+The service layer never contains SQL — it only orchestrates business logic and delegates persistence to the repository.
 
-### 5. Repository Layer
+---
 
-`ManualStudentRepository.java` is a manually created repository-style component.
+## Controller Layer
 
-At the moment, it does not actually save data using Spring Data JPA. It prints messages to the console and returns the same student object.
+```java
+@RestController
+@RequestMapping("/api/students")
+public class StudentController {
 
-Current flow:
+    private final StudentService studentService;
 
-```text
-Client request
--> StudentController
--> StudentService
--> ManualStudentRepository
--> Response
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
+    @PostMapping
+    public ResponseEntity<StudentEntity> create(@RequestBody StudentEntity studentEntity) {
+        StudentEntity saved = studentService.createStudent(studentEntity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentEntity> getStudent(@PathVariable Long id) {
+        StudentEntity student = studentService.getStudent(id);
+        if (student == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(student);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StudentEntity>> getAllStudents() {
+        return ResponseEntity.ok(studentService.getAllStudents());
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateStudent(@RequestBody StudentEntity student) {
+        studentService.updateStudent(student);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.noContent().build();
+    }
+}
 ```
 
-## Database Configuration
+---
 
-The project is configured to use PostgreSQL in `src/main/resources/application.properties`.
+## Understanding `ResponseEntity`
 
-Current database URL:
+`ResponseEntity` represents the **full HTTP response** — status code, headers, and body — giving explicit control instead of relying on Spring's default status inference.
 
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/practice_db
+| Method | Status Code | When to Use |
+|---|---|---|
+| `ok(...)` | 200 | Successful `GET` / `PUT`, returning a resource |
+| `created(uri)` | 201 | Successful `POST` creating a new resource (include `Location` header) |
+| `noContent()` | 204 | Successful `DELETE` or update with no response body |
+| `badRequest()` | 400 | Invalid client input / validation failure |
+| `notFound()` | 404 | Requested resource doesn't exist |
+| `status(HttpStatus.CONFLICT)` | 409 | Duplicate resource / conflict |
+| `status(HttpStatus.INTERNAL_SERVER_ERROR)` | 500 | Unexpected server error |
+
+Example of a `201 Created` response with a `Location` header:
+
+```java
+@PostMapping
+public ResponseEntity<StudentEntity> create(@RequestBody StudentEntity studentEntity) {
+    StudentEntity saved = studentService.createStudent(studentEntity);
+    URI location = ServletUriComponentsBuilder
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(saved.getId())
+            .toUri();
+    return ResponseEntity.created(location).body(saved);
+}
 ```
 
-Hibernate is configured with:
+Most factory methods return a `BodyBuilder`, so `.body(...)` or `.build()` must be chained to complete the response.
 
-```properties
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
+---
+
+## Bug Fix: JDBC Parameter Order Mismatch
+
+**Symptom:** Wrong values inserted into wrong columns (e.g. `age` and `roll_no` swapped).
+
+**Cause:** The `?` placeholder index in `ps.setXxx(index, value)` didn't match the actual column order in the SQL statement.
+
+**Before (buggy):**
+```java
+ps.setString(1, student.getName());
+ps.setInt(3, student.getAge());       // wrong index
+ps.setString(4, student.getEmail());  // wrong index
+ps.setInt(2, student.getRollNo());    // wrong index
+ps.setString(5, student.getSubject());
 ```
 
-This means Hibernate can automatically create or update tables based on entity classes, and SQL queries will be printed in the console.
-
-## How To Run
-
-Make sure PostgreSQL is running and that a database named `practice_db` exists.
-
-Then run:
-
-```bash
-./mvnw spring-boot:run
+**After (fixed):**
+```java
+ps.setString(1, student.getName());   // name
+ps.setInt(2, student.getAge());       // age
+ps.setString(3, student.getEmail());  // email
+ps.setInt(4, student.getRollNo());    // roll_no
+ps.setString(5, student.getSubject());// subject
 ```
 
-On Windows:
+**Lesson:** Keep the SQL column list and the `set` calls visually aligned, top to bottom, so mismatches are easy to spot.
 
-```bash
-mvnw.cmd spring-boot:run
+---
+
+## Bug Fix: `KeyHolder` Multiple Keys Exception
+
+### Error
+```
+org.springframework.dao.InvalidDataAccessApiUsageException:
+The getKey method should only be used when a single key is returned.
+The current key entry contains multiple keys:
+[{id=1, age=22, email=..., name=..., roll_no=54, subject=java}]
 ```
 
-The application will start on the default Spring Boot port:
+### Root Cause
+`Statement.RETURN_GENERATED_KEYS` caused the JDBC driver to return the **entire inserted row** (all columns), not just the generated `id`. Calling `keyHolder.getKey()` fails because it only supports a single-column, single-key result.
 
-```text
-http://localhost:8080
+### Fix
+Use `getKeys()` (plural) to retrieve the full result map, then extract the `id` column by name:
+
+```java
+Number id = (Number) keyHolder.getKeys().get("id");
+student.setId(id.longValue());
 ```
 
-## Testing The API
+### Why this works
+- `getKey()` → throws if more than one column is returned by the driver.
+- `getKeys()` → returns the complete `Map<String, Object>`, letting you safely pick the specific column you need.
 
-You can test the create student endpoint with curl:
-
-```bash
-curl -X POST http://localhost:8080/api/students \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Ram",
-    "age": 20,
-    "email": "ram@example.com",
-    "rollNo": 1,
-    "subject": "Math"
-  }'
+### Alternative Approach
+Restrict the statement to only return the `id` column:
+```java
+PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
 ```
+This can work but is driver-dependent and less portable than using `getKeys()`.
 
-## Current Status
+---
 
-Implemented:
+## Key Takeaways
 
-- Spring Boot application setup
-- Student entity
-- Student controller
-- Student service
-- Manual repository component
-- Create student endpoint structure
-- PostgreSQL and Hibernate configuration
-
-Not fully implemented yet:
-
-- Saving student records with a real Spring Data JPA repository
-- Getting all students
-- Updating students
-- Deleting students
-- Request validation
-- Error handling
-
-## Important Notes
-
-The project currently stores database credentials directly in `application.properties`. For real projects, it is better to move passwords and other secrets into environment variables or a `.env` file that is not committed to Git.
-
-The project name uses `curdOperationsApplication`, but the common term is `CRUD`, which means Create, Read, Update, and Delete.
+- Without Spring Data JPA, the **Controller → Service → Repository** layering stays identical — only the repository implementation changes to use `JdbcTemplate` (or plain JDBC/Hibernate) with hand-written SQL.
+- Always include a **no-arg constructor** in entity classes for reflection-based frameworks and mappers.
+- SQL parameter indices must exactly match the column order — misalignment causes silent data corruption, not always a visible error.
+- Use the correct `ResponseEntity` factory method to communicate accurate HTTP semantics to API clients (`201` for creation, `204` for no-content responses, `404` for missing resources, etc.).
+- When using `KeyHolder`, prefer `getKeys()` over `getKey()` unless you're certain the driver returns exactly one generated column — this avoids `InvalidDataAccessApiUsageException` in multi-column return scenarios.
