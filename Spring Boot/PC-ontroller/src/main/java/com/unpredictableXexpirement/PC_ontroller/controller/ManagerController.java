@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/manager")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ManagerController {
 
     private final ManagerService managerService;
@@ -14,11 +15,54 @@ public class ManagerController {
         this.managerService = managerService;
     }
 
+    // =========================
+    // CHROME
+    // =========================
+
     @PostMapping("/open-chrome")
     public ResponseEntity<String> openChrome() {
 
-        String response = managerService.openChrome();
+        return ResponseEntity.ok(
+                managerService.openChrome()
+        );
+    }
 
-        return ResponseEntity.ok(response);
+
+    // =========================
+    // TERMINAL
+    // =========================
+
+    @PostMapping("/open-terminal")
+    public ResponseEntity<String> openTerminal() {
+
+        return ResponseEntity.ok(
+                managerService.openTerminal()
+        );
+    }
+
+
+    // =========================
+    // FILE MANAGER
+    // =========================
+
+    @PostMapping("/open-files")
+    public ResponseEntity<String> openFiles() {
+
+        return ResponseEntity.ok(
+                managerService.openFiles()
+        );
+    }
+
+
+    // =========================
+    // TEXT EDITOR
+    // =========================
+
+    @PostMapping("/open-editor")
+    public ResponseEntity<String> openEditor() {
+
+        return ResponseEntity.ok(
+                managerService.openEditor()
+        );
     }
 }

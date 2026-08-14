@@ -18,12 +18,16 @@ public class StudentEntity
     private int rollNo;
     private String subject;
 
+    public StudentEntity() {
+    }
+
     public StudentEntity(String name, int age, String email, int rollNo, String subject)
     {
         this.name = name;
         this.age = age;
         this.email = email;
         this.rollNo = rollNo;
+        this.subject = subject;
     }
 
     public Long getId() {

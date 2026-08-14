@@ -1,34 +1,36 @@
 package com.unpredictableXpractice.curdOperationsApplication.service;
 
 import com.unpredictableXpractice.curdOperationsApplication.entity.StudentEntity;
-import com.unpredictableXpractice.curdOperationsApplication.repository.ManualStudentRepository;
+import com.unpredictableXpractice.curdOperationsApplication.repository.StudentRepositoryHandler;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StudentService
 {
-    private ManualStudentRepository manualStudentRepository;
+    private final StudentRepositoryHandler studentRepository;
 
-    public StudentService(ManualStudentRepository manualStudentRepository){
-        this.manualStudentRepository = manualStudentRepository;
+    public StudentService(StudentRepositoryHandler studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
-    //Create
+    //write
     public StudentEntity createStudent(StudentEntity student){
-        System.out.println("inside Service");
-        StudentEntity savedStudent = manualStudentRepository.saveStudent(student);
-        System.out.println("Exiting service");
-        return savedStudent;
+
+        return studentRepository.save(student);
     }
 
-
-
-
-
-
-
-
-    //handle read
-    //handle update
-    // handle delete
+    //read
+    public List<StudentEntity> getAllStudents(){
+        return studentRepository.getAllStudents();
+    }
+    //update
+    //delete
+    public void deleteById(Long id){
+        studentRepository.deleteById(id);
+    }
+    public void deleteAllStudents(){
+        studentRepository.deleteAll();
+    }
 }
