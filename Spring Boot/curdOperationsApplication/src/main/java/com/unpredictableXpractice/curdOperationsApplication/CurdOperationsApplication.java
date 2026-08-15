@@ -12,7 +12,7 @@ public class CurdOperationsApplication {
 		dotenv.entries().forEach((entry) -> System.out.println(entry.getKey() + ": " + entry.getValue()));
 
 		SpringApplication.run(CurdOperationsApplication.class, args);
-		System.out.println("hell");
+		System.out.println("Ready");
 	}
 
 

@@ -21,7 +21,8 @@ public class StudentRepositoryIMP implements StudentRepositoryHandler
     }
 
     @Override
-    public StudentEntity save(StudentEntity student) {
+    public StudentEntity save(StudentEntity student)
+    {
         String sql = "INSERT INTO student_entity (name, age, email, roll_no, subject) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection ->
@@ -42,20 +43,49 @@ public class StudentRepositoryIMP implements StudentRepositoryHandler
     }
 
     @Override
-    public List<StudentEntity> getAllStudents() {
+    public List<StudentEntity> getAllStudents()
+    {
         String sql = "SELECT * FROM student_entity";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(StudentEntity.class));
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(long id)
+    {
         String sql = "DELETE FROM student_entity WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
 
     @Override
-    public void deleteAll() {
+    public void deleteAll()
+    {
         String sql = "DELETE FROM student_entity";
         jdbcTemplate.update(sql);
+    }
+
+    @Override
+    public StudentEntity updateStudent(StudentEntity student) {
+
+        String sql = """
+        UPDATE student_entity
+        SET name = ?,
+            email = ?,
+            age = ?,
+            roll_no = ?,
+            subject = ?
+        WHERE id = ?
+        """;
+
+        jdbcTemplate.update(
+                sql,
+                student.getName(),
+                student.getEmail(),
+                student.getAge(),
+                student.getRollNo(),
+                student.getSubject(),
+                student.getId()
+        );
+
+        return student;
     }
 }

@@ -15,22 +15,33 @@ public class StudentService
         this.studentRepository = studentRepository;
     }
 
-    //write
-    public StudentEntity createStudent(StudentEntity student){
-
+    // Write
+    public StudentEntity createStudent(StudentEntity student)
+    {
         return studentRepository.save(student);
     }
 
-    //read
-    public List<StudentEntity> getAllStudents(){
+    // Read all
+    public List<StudentEntity> getAllStudents()
+    {
         return studentRepository.getAllStudents();
     }
-    //update
-    //delete
-    public void deleteById(Long id){
+
+    // Delete By id
+    public void deleteById(Long id)
+    {
         studentRepository.deleteById(id);
     }
-    public void deleteAllStudents(){
+
+    // Delete All
+    public void deleteAllStudents()
+    {
         studentRepository.deleteAll();
+    }
+
+    //update
+    public StudentEntity updateStudent(StudentEntity student)
+    {
+        return studentRepository.updateStudent(student);
     }
 }

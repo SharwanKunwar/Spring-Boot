@@ -21,29 +21,36 @@ public class StudentController
         this.studentService = studentService;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<StudentEntity> create(@RequestBody StudentEntity studentEntity)
     {
         StudentEntity savedStudent = studentService.createStudent(studentEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<StudentEntity>> getAll()
     {
         return ResponseEntity.ok(studentService.getAllStudents());
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id){
+    public void delete(@PathVariable long id)
+    {
         studentService.deleteById(id);
     }
 
     @DeleteMapping("/all")
-    public void deleteAll(){
+    public void deleteAll()
+    {
         studentService.deleteAllStudents();
     }
 
+    @PutMapping("/update")
+    public StudentEntity update(@RequestBody StudentEntity studentEntity)
+    {
+        return studentService.updateStudent(studentEntity);
+    }
 
 
 }
