@@ -13,6 +13,7 @@ public interface CarServiceHandler
 
     //R
     List<Car> getAllCars();
+    Car getCarById(UUID id);
 
     //D
     void  deleteById(UUID id);

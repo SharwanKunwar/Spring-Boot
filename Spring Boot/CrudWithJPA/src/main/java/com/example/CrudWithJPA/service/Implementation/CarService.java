@@ -31,6 +31,11 @@ public class CarService implements CarServiceHandler
     }
 
     @Override
+    public Car getCarById(UUID id) {
+        return  carRepository.getOne(id);
+    }
+
+    @Override
     public void deleteById(UUID id) {
         carRepository.deleteById(id);
     }

@@ -34,6 +34,13 @@ public class CarController
         return carService.getAllCars();
     }
 
+    // Get by id request handler
+    @GetMapping("/{id}")
+    public Car getCarById(@PathVariable UUID id)
+    {
+        return carService.getCarById(id);
+    }
+
     //Delete request handler
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable UUID id){
