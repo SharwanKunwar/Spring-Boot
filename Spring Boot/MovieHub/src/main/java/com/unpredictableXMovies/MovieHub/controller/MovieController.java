@@ -3,7 +3,6 @@ package com.unpredictableXMovies.MovieHub.controller;
 import com.unpredictableXMovies.MovieHub.entity.Movie;
 import com.unpredictableXMovies.MovieHub.service.MovieServiceHandler;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +20,12 @@ public class MovieController
     @PostMapping
     public ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
         return ResponseEntity.ok(service.createMovie(movie));
+    }
+
+    // Add movies in bulk
+    @PostMapping("/bulk")
+    public ResponseEntity<List<Movie>> createMovies(@RequestBody List<Movie> movies) {
+        return ResponseEntity.ok(service.createMoviesBulk(movies));
     }
 
     // Get all movies

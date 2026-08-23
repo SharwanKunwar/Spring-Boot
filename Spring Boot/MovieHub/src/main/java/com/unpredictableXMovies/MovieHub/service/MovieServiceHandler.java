@@ -9,6 +9,8 @@ public interface MovieServiceHandler
 {
     //create
     Movie createMovie(Movie movie);
+    //create movies in bulk
+    List<Movie> createMoviesBulk(List<Movie> movies);
     //Read all
     List<Movie> getAllMovies();
     //Update movie
