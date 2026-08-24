@@ -14,7 +14,8 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ProductServiceIMP implements ProductServiceHandler {
+public class ProductServiceIMP implements ProductServiceHandler
+{
 
     private final ProductRepository productRepository;
 
@@ -36,8 +37,8 @@ public class ProductServiceIMP implements ProductServiceHandler {
     }
 
     @Override
-    public List<ProductResponseDTO> getAllProducts() {
-
+    public List<ProductResponseDTO> getAllProducts()
+    {
         return productRepository.findAll()
                 .stream()
                 .map(this::mapToResponseDTO)
@@ -45,20 +46,18 @@ public class ProductServiceIMP implements ProductServiceHandler {
     }
 
     @Override
-    public ProductResponseDTO getProductById(UUID id) {
-
+    public ProductResponseDTO getProductById(UUID id)
+    {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
-
         return mapToResponseDTO(product);
     }
 
     @Override
-    public ProductResponseDTO updateProduct(UUID id, ProductRequestDTO request
-    ) {
+    public ProductResponseDTO updateProduct(UUID id, ProductRequestDTO request)
+    {
 
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException(id));
+        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
 
         product.setName(request.getName());
         product.setDescription(request.getDescription());
@@ -73,15 +72,15 @@ public class ProductServiceIMP implements ProductServiceHandler {
     }
 
     @Override
-    public void deleteProduct(UUID id) {
+    public void deleteProduct(UUID id)
+    {
 
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException(id));
-
+        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
         productRepository.delete(product);
     }
 
-    private ProductResponseDTO mapToResponseDTO(Product product) {
+    private ProductResponseDTO mapToResponseDTO(Product product)
+    {
 
         return new ProductResponseDTO(
                 product.getId(),

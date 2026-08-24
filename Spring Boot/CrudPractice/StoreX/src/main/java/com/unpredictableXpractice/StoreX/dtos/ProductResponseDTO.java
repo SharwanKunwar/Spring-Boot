@@ -11,23 +11,15 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductResponseDTO {
-
+public class ProductResponseDTO
+{
     private UUID id;
-
     private String name;
-
     private String description;
-
     private BigDecimal price;
-
     private Integer stock;
-
     private Category category;
-
     private Boolean available;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 }

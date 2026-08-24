@@ -19,57 +19,43 @@ public class ProductController {
 
     private final ProductServiceHandler productService;
 
-
+    // Create
     @PostMapping
-    public ResponseEntity<ProductResponseDTO> create(
-            @Valid @RequestBody ProductRequestDTO request
-    ) {
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(productService.create(request));
+    public ResponseEntity<ProductResponseDTO> create(@Valid @RequestBody ProductRequestDTO request)
+    {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.create(request));
     }
 
 
+    // Get all product
     @GetMapping
-    public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
-
-        return ResponseEntity.ok(
-                productService.getAllProducts()
-        );
+    public ResponseEntity<List<ProductResponseDTO>> getAllProducts()
+    {
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
 
+    // Get product by id
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> getProductById(
-            @PathVariable UUID id
-    ) {
-
-        return ResponseEntity.ok(
-                productService.getProductById(id)
-        );
+    public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable UUID id)
+    {
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
 
+    // Update product
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> updateProduct(
-            @PathVariable UUID id,
-            @Valid @RequestBody ProductRequestDTO request
-    ) {
-
-        return ResponseEntity.ok(
-                productService.updateProduct(id, request)
-        );
+    public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable UUID id, @Valid @RequestBody ProductRequestDTO request)
+    {
+        return ResponseEntity.ok(productService.updateProduct(id, request));
     }
 
 
+    // Delete product by id
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(
-            @PathVariable UUID id
-    ) {
-
+    public ResponseEntity<Void> deleteProduct(@PathVariable UUID id)
+    {
         productService.deleteProduct(id);
-
         return ResponseEntity.noContent().build();
     }
 }
