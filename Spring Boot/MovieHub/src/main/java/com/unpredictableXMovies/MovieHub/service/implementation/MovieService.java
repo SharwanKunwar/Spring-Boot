@@ -30,12 +30,20 @@ public class MovieService implements MovieServiceHandler
     }
 
     @Override
-    public Movie updateMovie(UUID id, Movie movie) {
+    public Movie updateMovie(UUID id, Movie movie)
+    {
+        Movie existingMovie = repository.findById(id).orElse(null);
+        System.out.println(existingMovie);
         return null;
     }
 
     @Override
     public void deleteMovie(UUID id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public void deleteAllMovies() {
+        repository.deleteAll();
     }
 }

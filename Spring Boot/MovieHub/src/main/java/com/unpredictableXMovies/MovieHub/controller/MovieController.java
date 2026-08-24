@@ -34,9 +34,22 @@ public class MovieController
         return ResponseEntity.ok(service.getAllMovies());
     }
 
+    // Update movie
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Movie> updateMovie(@PathVariable UUID id, @RequestBody Movie movie)
+    {
+        return ResponseEntity.ok(service.updateMovie(id, movie));
+    }
+
     //Delete movies
     @DeleteMapping
     public void deleteMovie(UUID id) {
         service.deleteMovie(id);
+    }
+
+    //Delete all movies
+    @DeleteMapping("/all")
+    public void deleteAllMovies() {
+        service.deleteAllMovies();
     }
 }

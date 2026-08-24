@@ -16,6 +16,7 @@ public class MovieHubApplication {
 		System.setProperty("DB_PASSWORD", dotenv.get("DB_PASSWORD"));
 
 		SpringApplication.run(MovieHubApplication.class, args);
+		System.out.println("Ready to Hit.");
 	}
 
 }

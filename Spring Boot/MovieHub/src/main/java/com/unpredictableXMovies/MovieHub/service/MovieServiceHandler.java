@@ -17,4 +17,6 @@ public interface MovieServiceHandler
     Movie updateMovie(UUID id, Movie movie);
     //Delete movie
     void deleteMovie(UUID id);
+    //Delete all movies
+    void deleteAllMovies();
 }
