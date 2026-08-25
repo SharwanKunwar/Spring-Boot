@@ -15,10 +15,9 @@ public class GlobalExceptionHandler
 
     // Product not found
     @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleProductNotFound(ProductNotFoundException exception) {
-
+    public ResponseEntity<Map<String, Object>> handleProductNotFound(ProductNotFoundException exception)
+    {
         Map<String, Object> response = new HashMap<>();
-
         response.put("timestamp", LocalDateTime.now());
         response.put("status", HttpStatus.NOT_FOUND.value());
         response.put("error", "Product Not Found");
@@ -30,18 +29,13 @@ public class GlobalExceptionHandler
 
     // DTO validation errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException exception) {
-
+    public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException exception)
+    {
         Map<String, String> errors = new HashMap<>();
 
         exception.getBindingResult()
                 .getFieldErrors()
-                .forEach(error ->
-                        errors.put(
-                                error.getField(),
-                                error.getDefaultMessage()
-                        )
-                );
+                .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
 
         Map<String, Object> response = new HashMap<>();
 

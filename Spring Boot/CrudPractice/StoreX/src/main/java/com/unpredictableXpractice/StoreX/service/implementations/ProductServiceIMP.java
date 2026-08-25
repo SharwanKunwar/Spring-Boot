@@ -4,6 +4,7 @@ import com.unpredictableXpractice.StoreX.dtos.ProductRequestDTO;
 import com.unpredictableXpractice.StoreX.dtos.ProductResponseDTO;
 import com.unpredictableXpractice.StoreX.entity.Product;
 import com.unpredictableXpractice.StoreX.exception.ProductNotFoundException;
+import com.unpredictableXpractice.StoreX.mapper.ProductMapper;
 import com.unpredictableXpractice.StoreX.repository.ProductRepository;
 import com.unpredictableXpractice.StoreX.service.ProductServiceHandler;
 import lombok.RequiredArgsConstructor;
@@ -20,20 +21,12 @@ public class ProductServiceIMP implements ProductServiceHandler
     private final ProductRepository productRepository;
 
     @Override
-    public ProductResponseDTO create(ProductRequestDTO request) {
-
-        Product product = Product.builder()
-                .name(request.getName())
-                .description(request.getDescription())
-                .price(request.getPrice())
-                .stock(request.getStock())
-                .category(request.getCategory())
-                .available(request.getStock() > 0)
-                .build();
-
+    public ProductResponseDTO create(ProductRequestDTO request)
+    {
+        Product product = ProductMapper.toEntity(request);
         Product savedProduct = productRepository.save(product);
 
-        return mapToResponseDTO(savedProduct);
+        return ProductMapper.toResponseDTO(savedProduct);
     }
 
     @Override
@@ -41,57 +34,31 @@ public class ProductServiceIMP implements ProductServiceHandler
     {
         return productRepository.findAll()
                 .stream()
-                .map(this::mapToResponseDTO)
+                .map(ProductMapper::toResponseDTO)
                 .toList();
     }
 
     @Override
     public ProductResponseDTO getProductById(UUID id)
     {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException(id));
-        return mapToResponseDTO(product);
+        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+        return ProductMapper.toResponseDTO(product);
     }
 
     @Override
     public ProductResponseDTO updateProduct(UUID id, ProductRequestDTO request)
     {
-
         Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
-
-        product.setName(request.getName());
-        product.setDescription(request.getDescription());
-        product.setPrice(request.getPrice());
-        product.setStock(request.getStock());
-        product.setCategory(request.getCategory());
-        product.setAvailable(request.getStock() > 0);
-
+        ProductMapper.updateEntity(product, request);
         Product updatedProduct = productRepository.save(product);
 
-        return mapToResponseDTO(updatedProduct);
+        return ProductMapper.toResponseDTO(updatedProduct);
     }
 
     @Override
     public void deleteProduct(UUID id)
     {
-
         Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
         productRepository.delete(product);
-    }
-
-    private ProductResponseDTO mapToResponseDTO(Product product)
-    {
-
-        return new ProductResponseDTO(
-                product.getId(),
-                product.getName(),
-                product.getDescription(),
-                product.getPrice(),
-                product.getStock(),
-                product.getCategory(),
-                product.getAvailable(),
-                product.getCreatedAt(),
-                product.getUpdatedAt()
-        );
     }
 }

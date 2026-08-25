@@ -3,19 +3,19 @@ package com.unpredictableXpractice.StoreX.entity;
 import com.unpredictableXpractice.StoreX.enums.Category;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "products")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+@Table(name = "products")
+public class Product
+{
 
     @Id
     @GeneratedValue
@@ -47,10 +47,9 @@ public class Product {
     private LocalDateTime updatedAt;
 
     @PrePersist
-    protected void onCreate() {
-
+    protected void onCreate()
+    {
         LocalDateTime now = LocalDateTime.now();
-
         createdAt = now;
         updatedAt = now;
 
@@ -60,12 +59,13 @@ public class Product {
     }
 
     @PreUpdate
-    protected void onUpdate() {
-
+    protected void onUpdate()
+    {
         updatedAt = LocalDateTime.now();
 
         if (stock != null) {
             available = stock > 0;
         }
     }
+
 }
