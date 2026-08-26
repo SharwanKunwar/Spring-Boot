@@ -21,10 +21,10 @@ public class Project
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, length = 300)
+    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
