@@ -29,8 +29,10 @@ public class BookServiceIMP implements BookServiceHelper
     }
 
     @Override
-    public List<BookResponseDTO> getAllBooks() {
-        return List.of();
+    public List<BookResponseDTO> getAllBooks()
+    {
+        List<Book> books = repository.findAll();
+        return books.stream().map(mapper::toResponse).toList();
     }
 
     @Override
