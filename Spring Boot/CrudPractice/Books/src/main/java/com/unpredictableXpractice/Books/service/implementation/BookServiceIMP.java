@@ -2,6 +2,8 @@ package com.unpredictableXpractice.Books.service.implementation;
 
 import com.unpredictableXpractice.Books.dtos.BookRequestDTO;
 import com.unpredictableXpractice.Books.dtos.BookResponseDTO;
+import com.unpredictableXpractice.Books.entity.Book;
+import com.unpredictableXpractice.Books.mapper.BookMapper;
 import com.unpredictableXpractice.Books.repository.BookRepository;
 import com.unpredictableXpractice.Books.service.BookServiceHelper;
 import lombok.AllArgsConstructor;
@@ -15,10 +17,15 @@ import java.util.UUID;
 public class BookServiceIMP implements BookServiceHelper
 {
     private final BookRepository repository;
+    private final BookMapper mapper;
 
     @Override
-    public BookResponseDTO create(BookRequestDTO bookRequest) {
-        return null;
+    public BookResponseDTO create(BookRequestDTO bookRequest)
+    {
+        Book book = mapper.toEntity(bookRequest);
+        Book savedBook = repository.save(book);
+
+        return mapper.toResponse(savedBook);
     }
 
     @Override
