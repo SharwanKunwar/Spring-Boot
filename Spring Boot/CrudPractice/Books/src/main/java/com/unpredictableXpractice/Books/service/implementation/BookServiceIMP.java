@@ -36,7 +36,8 @@ public class BookServiceIMP implements BookServiceHelper
     }
 
     @Override
-    public BookResponseDTO getBookById(UUID id) {
+    public BookResponseDTO getBookById(UUID id)
+    {
         return null;
     }
 
