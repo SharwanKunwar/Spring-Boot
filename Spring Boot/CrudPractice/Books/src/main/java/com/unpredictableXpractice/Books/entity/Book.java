@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Fev-books")
+@Table(name = "fev-books")
 public class Book
 {
     @Id
@@ -29,6 +29,7 @@ public class Book
 
     @Column(nullable = false)
     private String author;
+
     private Integer pages;
     private BigDecimal price;
     private boolean deleted = false;

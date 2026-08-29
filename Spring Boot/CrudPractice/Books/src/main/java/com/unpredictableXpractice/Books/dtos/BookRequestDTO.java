@@ -23,7 +23,7 @@ public class BookRequestDTO
     private String description;
 
     @NotBlank(message = "Author is required.")
-    @Size(max = 20, message = "Author must be within 20 characters")
+    @Size(min = 3, max = 20, message = "Author must be within 20 characters")
     private String author;
 
     @NotNull(message = "Pages are required")
