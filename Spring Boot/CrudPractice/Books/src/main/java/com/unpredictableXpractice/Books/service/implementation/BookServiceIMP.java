@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -31,23 +32,32 @@ public class BookServiceIMP implements BookServiceHelper
     @Override
     public List<BookResponseDTO> getAllBooks()
     {
-        List<Book> books = repository.findAll();
+        List<Book> books = repository.findByDeletedFalse();
         return books.stream().map(mapper::toResponse).toList();
     }
 
     @Override
     public BookResponseDTO getBookById(UUID id)
     {
-        return null;
+        Optional<Book> book = repository.findByIdAndDeletedFalse(id);
+        return book.map(mapper::toResponse).orElseThrow(()-> new RuntimeException("Book not found."));
     }
 
     @Override
-    public void deleteBook(UUID id) {
-
+    public String deleteBook(UUID id)
+    {
+        Book book = repository.findById(id).orElseThrow(()-> new RuntimeException("Book not found."));
+        repository.delete(book);
+        return "Book deleted successfully";
     }
 
     @Override
-    public String softDeleteBook(UUID id) {
-        return "";
+    public String softDeleteBook(UUID id)
+    {
+        Book book = repository.findById(id).orElseThrow(()-> new RuntimeException("Book Not Found."));
+        book.setDeleted(true);
+        repository.save(book);
+
+        return "Book deleted successfully";
     }
 }
