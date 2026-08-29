@@ -16,4 +16,7 @@ public interface BookRepository extends JpaRepository<Book, UUID>
 
     // Find all non-deleted books
     List<Book> findByDeletedFalse();
+
+    // Find all Deleted Books
+    List<Book> findByDeletedTrue();
 }

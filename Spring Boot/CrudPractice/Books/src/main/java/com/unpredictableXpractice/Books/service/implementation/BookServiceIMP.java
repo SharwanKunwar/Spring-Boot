@@ -60,4 +60,11 @@ public class BookServiceIMP implements BookServiceHelper
 
         return "Book deleted successfully";
     }
+
+    @Override
+    public List<BookResponseDTO> displayAllDeletedBooks()
+    {
+        List<Book> book = repository.findByDeletedTrue();
+        return book.stream().map(mapper::toResponse).toList();
+    }
 }

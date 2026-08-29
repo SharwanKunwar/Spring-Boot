@@ -13,4 +13,5 @@ public interface BookServiceHelper
     BookResponseDTO getBookById(UUID id);
     String deleteBook(UUID id);
     String softDeleteBook(UUID id);
+    List<BookResponseDTO> displayAllDeletedBooks();
 }
