@@ -3,6 +3,7 @@ package com.unpredictableXpractice.Books.controller;
 import com.unpredictableXpractice.Books.dtos.BookRequestDTO;
 import com.unpredictableXpractice.Books.dtos.BookResponseDTO;
 import com.unpredictableXpractice.Books.service.BookServiceHelper;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class BookController
 
     //Create
     @PostMapping
-    public ResponseEntity<BookResponseDTO> create(@RequestBody BookRequestDTO request)
+    public ResponseEntity<BookResponseDTO> create(@Valid @RequestBody BookRequestDTO request)
     {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
     }
