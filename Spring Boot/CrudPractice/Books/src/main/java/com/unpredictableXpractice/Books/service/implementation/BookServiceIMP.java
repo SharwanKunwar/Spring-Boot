@@ -3,11 +3,14 @@ package com.unpredictableXpractice.Books.service.implementation;
 import com.unpredictableXpractice.Books.dtos.BookRequestDTO;
 import com.unpredictableXpractice.Books.dtos.BookResponseDTO;
 import com.unpredictableXpractice.Books.entity.Book;
+import com.unpredictableXpractice.Books.exceptions.ResourceNotFoundException;
 import com.unpredictableXpractice.Books.mapper.BookMapper;
 import com.unpredictableXpractice.Books.repository.BookRepository;
 import com.unpredictableXpractice.Books.service.BookServiceHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +30,15 @@ public class BookServiceIMP implements BookServiceHelper
         Book savedBook = repository.save(book);
 
         return mapper.toResponse(savedBook);
+    }
+
+    @Override
+    public BookResponseDTO update(UUID id, BookRequestDTO request)
+    {
+        Book book = repository.findByIdAndDeletedFalse(id).orElseThrow(()-> new ResourceNotFoundException("Book not found."));
+        BookMapper.toUpdateEntity(book,request);
+        Book updatedBook = repository.save(book);
+        return mapper.toResponse(updatedBook);
     }
 
     @Override

@@ -20,6 +20,16 @@ public class BookMapper
         return book;
     }
 
+    // update
+    public static void toUpdateEntity(Book book, BookRequestDTO request)
+    {
+        book.setTitle(request.getTitle());
+        book.setDescription(request.getDescription());
+        book.setAuthor(request.getAuthor());
+        book.setPages(request.getPages());
+        book.setPrice(request.getPrice());
+    }
+
     //Entity to Response
     public BookResponseDTO toResponse(Book book){
         BookResponseDTO response = new BookResponseDTO();

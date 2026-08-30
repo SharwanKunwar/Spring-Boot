@@ -8,7 +8,8 @@ import java.util.UUID;
 
 public interface BookServiceHelper
 {
-    BookResponseDTO create(BookRequestDTO bookRequest);
+    BookResponseDTO create(BookRequestDTO request);
+    BookResponseDTO update(UUID id, BookRequestDTO request);
     List<BookResponseDTO> getAllBooks();
     BookResponseDTO getBookById(UUID id);
     String deleteBook(UUID id);
