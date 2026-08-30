@@ -2,6 +2,7 @@ package com.unpredictableXpractice.Books.controller;
 
 import com.unpredictableXpractice.Books.dtos.BookRequestDTO;
 import com.unpredictableXpractice.Books.dtos.BookResponseDTO;
+import com.unpredictableXpractice.Books.entity.Book;
 import com.unpredictableXpractice.Books.service.BookServiceHelper;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,13 @@ public class BookController
     public ResponseEntity<BookResponseDTO> create(@Valid @RequestBody BookRequestDTO request)
     {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
+    }
+
+    //update
+    @PutMapping("/update")
+    public ResponseEntity<BookResponseDTO> update(@PathVariable UUID id, @RequestBody BookRequestDTO request)
+    {
+        return ResponseEntity.ok(service.update(id,request));
     }
 
     //Get All books
