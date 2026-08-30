@@ -1,35 +1,44 @@
-package com.unpredictableXMovies.MovieHub.entity;
+package com.example.movieapp.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.unpredictableXMovies.MovieHub.enums.Genre;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Movie
-{
+@Table(name = "movies")
+public class Movie {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    @Column(name = "title", nullable = false)
     private String title;
-    private String shortStory;
-    private String genre;
-    private Double imdbRating;
-    private Integer duration;
-    private String imageUrl;
-    private String actors;
-    private String directors;
-    private String country;
-    private String language;
+
+    @Column(name = "description")
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "genre")
+    private Genre genre;
+
+    @Column(name = "release_date")
     private LocalDate releaseDate;
 
+    @Column(name = "imdb_rating")
+    private Double imdbRating;
+
+    @Column(name = "length")
+    private Integer length;
+
+    @Column(name = "poster_url")
+    private String posterUrl;
 }

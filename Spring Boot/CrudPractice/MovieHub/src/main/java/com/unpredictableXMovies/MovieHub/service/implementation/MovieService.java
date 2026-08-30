@@ -11,39 +11,8 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class MovieService implements MovieServiceHandler
+public class MovieService
 {
     private final MovieRepository repository;
-    @Override
-    public Movie createMovie(Movie movie) {
-        return null;
-    }
 
-    @Override
-    public List<Movie> createMoviesBulk(List<Movie> movies) {
-        return repository.saveAll(movies);
-    }
-
-    @Override
-    public List<Movie> getAllMovies() {
-        return repository.findAll();
-    }
-
-    @Override
-    public Movie updateMovie(UUID id, Movie movie)
-    {
-        Movie existingMovie = repository.findById(id).orElse(null);
-        System.out.println(existingMovie);
-        return null;
-    }
-
-    @Override
-    public void deleteMovie(UUID id) {
-        repository.deleteById(id);
-    }
-
-    @Override
-    public void deleteAllMovies() {
-        repository.deleteAll();
-    }
 }
