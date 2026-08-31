@@ -1,6 +1,7 @@
 package com.unpredictableXMovies.MovieHub.service;
 
 import com.unpredictableXMovies.MovieHub.dtos.MovieRequestDTO;
+import com.unpredictableXMovies.MovieHub.dtos.MovieResponseDTO;
 import com.unpredictableXMovies.MovieHub.entity.Movie;
 
 import java.util.List;
@@ -10,14 +11,25 @@ public interface MovieServiceHandler
 {
     //create
     MovieRequestDTO createMovie(MovieRequestDTO request);
+
     //create movies in bulk
-    List<Movie> createMoviesBulk(List<Movie> movies);
-    //Read all
-    List<Movie> getAllMovies();
+    List<MovieResponseDTO> createMoviesBulk(List<MovieResponseDTO> movies);
+
+    //Get all movies
+    List<MovieResponseDTO> getAllMovies();
+
+    //Get movie by id
+    MovieResponseDTO getMovieById(UUID id);
+
     //Update movie
-    Movie updateMovie(UUID id, Movie movie);
-    //Delete movie
-    void deleteMovie(UUID id);
+    MovieResponseDTO updateMovie(UUID id, Movie movie);
+
+    //Delete movie [type = Hard]
+    String deleteHardly(UUID id);
+
+    //Delete movie [type = Soft]
+    String deleteSoftly(UUID id);
+
     //Delete all movies
-    void deleteAllMovies();
+    String deleteAllMovies();
 }
