@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface MovieServiceHandler
 {
     //create
-    MovieRequestDTO createMovie(MovieRequestDTO request);
+    MovieResponseDTO createMovie(MovieRequestDTO request);
 
     //create movies in bulk
     List<MovieResponseDTO> createMoviesBulk(List<MovieResponseDTO> movies);
