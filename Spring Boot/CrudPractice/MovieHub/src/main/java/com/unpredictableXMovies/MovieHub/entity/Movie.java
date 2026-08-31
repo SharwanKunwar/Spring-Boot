@@ -1,4 +1,4 @@
-package com.example.movieapp.entity;
+package com.unpredictableXMovies.MovieHub.entity;
 
 import com.unpredictableXMovies.MovieHub.enums.Genre;
 import jakarta.persistence.*;

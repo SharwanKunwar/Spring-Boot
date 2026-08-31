@@ -1,5 +1,6 @@
 package com.unpredictableXMovies.MovieHub.service;
 
+import com.unpredictableXMovies.MovieHub.dtos.MovieRequestDTO;
 import com.unpredictableXMovies.MovieHub.entity.Movie;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.UUID;
 public interface MovieServiceHandler
 {
     //create
-    Movie createMovie(Movie movie);
+    MovieRequestDTO createMovie(MovieRequestDTO request);
     //create movies in bulk
     List<Movie> createMoviesBulk(List<Movie> movies);
     //Read all
