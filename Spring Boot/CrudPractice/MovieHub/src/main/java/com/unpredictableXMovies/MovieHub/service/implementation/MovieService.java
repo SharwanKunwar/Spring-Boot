@@ -16,24 +16,20 @@ import java.util.UUID;
 public class MovieService implements MovieServiceHandler
 {
     private final MovieRepository repository;
-    private final MovieMapper mapper;
 
     @Override
     public MovieResponseDTO createMovie(MovieRequestDTO requestDTO)
     {
-        Movie movie = mapper.toEntity(requestDTO);
+        Movie movie = MovieMapper.toEntity(requestDTO);
         Movie savedMovie = repository.save(movie);
-        return mapper.toResponse(savedMovie);
+        return MovieMapper.toResponse(savedMovie);
     }
 
     @Override
-    public List<MovieResponseDTO> createMoviesBulk(List<MovieResponseDTO> movies) {
-        return List.of();
-    }
-
-    @Override
-    public List<MovieResponseDTO> getAllMovies() {
-        return List.of();
+    public List<MovieResponseDTO> getAllMovies()
+    {
+        List<Movie> movies = repository.findByDeletedFalse();
+        return movies.stream().map(MovieMapper::toResponse).toList();
     }
 
     @Override

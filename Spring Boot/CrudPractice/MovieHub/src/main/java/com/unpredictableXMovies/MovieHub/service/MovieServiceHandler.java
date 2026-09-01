@@ -12,9 +12,6 @@ public interface MovieServiceHandler
     //create
     MovieResponseDTO createMovie(MovieRequestDTO request);
 
-    //create movies in bulk
-    List<MovieResponseDTO> createMoviesBulk(List<MovieResponseDTO> movies);
-
     //Get all movies
     List<MovieResponseDTO> getAllMovies();
 
