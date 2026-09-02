@@ -50,17 +50,21 @@ public class MovieService implements MovieServiceHandler
     }
 
     @Override
-    public String deleteHardly(UUID id) {
-        return "";
+    public String deleteHardly(UUID id)
+    {
+        Movie movie = repository.findByIdAndDeletedFalse(id).orElseThrow(()-> new RuntimeException("Movie not found"));
+        repository.delete(movie);
+        return "Movie is deleted successfully";
     }
 
     @Override
-    public String deleteSoftly(UUID id) {
-        return "";
+    public String deleteSoftly(UUID id)
+    {
+        Movie movie = repository.findByIdAndDeletedFalse(id).orElseThrow(()-> new RuntimeException("Movie not found."));
+        movie.setDeleted(true);
+        repository.save(movie);
+        return "Movie deleted successfully";
     }
 
-    @Override
-    public String deleteAllMovies() {
-        return "";
-    }
+
 }

@@ -27,6 +27,4 @@ public interface MovieServiceHandler
     //Delete movie [type = Soft]
     String deleteSoftly(UUID id);
 
-    //Delete all movies
-    String deleteAllMovies();
 }
