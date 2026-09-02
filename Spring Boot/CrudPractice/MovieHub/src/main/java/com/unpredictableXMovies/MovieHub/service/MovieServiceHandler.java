@@ -19,7 +19,7 @@ public interface MovieServiceHandler
     MovieResponseDTO getMovieById(UUID id);
 
     //Update movie
-    MovieResponseDTO updateMovie(UUID id, Movie movie);
+    MovieResponseDTO updateMovie(UUID id, MovieRequestDTO movie);
 
     //Delete movie [type = Hard]
     String deleteHardly(UUID id);

@@ -9,6 +9,7 @@ import com.unpredictableXMovies.MovieHub.service.MovieServiceHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -33,13 +34,19 @@ public class MovieService implements MovieServiceHandler
     }
 
     @Override
-    public MovieResponseDTO getMovieById(UUID id) {
-        return null;
+    public MovieResponseDTO getMovieById(UUID id)
+    {
+        Optional<Movie> movie = repository.findByIdAndDeletedFalse(id);
+        return movie.map(MovieMapper::toResponse).orElseThrow(()-> new RuntimeException("movie not found"));
     }
 
     @Override
-    public MovieResponseDTO updateMovie(UUID id, Movie movie) {
-        return null;
+    public MovieResponseDTO updateMovie(UUID id, MovieRequestDTO requestDTO)
+    {
+        Movie movie = repository.findByIdAndDeletedFalse(id).orElseThrow(()-> new RuntimeException("Movie is not found"));
+        MovieMapper.updateEntity(movie,requestDTO);
+        Movie updatedMovie = repository.save(movie);
+        return MovieMapper.toResponse(updatedMovie);
     }
 
     @Override
