@@ -48,5 +48,19 @@ public class MovieController
         return ResponseEntity.ok(service.updateMovie(id, requestDTO));
     }
 
+    // Hard Delete
+    @DeleteMapping("/hard/{id}")
+    public String deleteMovie(@PathVariable UUID id)
+    {
+        return service.deleteHardly(id);
+    }
+
+    // Soft Delete
+    @PatchMapping("/soft/{id}")
+    public String deleteMovieSoftly(@PathVariable UUID id)
+    {
+        return service.deleteSoftly(id);
+    }
+
 
 }
