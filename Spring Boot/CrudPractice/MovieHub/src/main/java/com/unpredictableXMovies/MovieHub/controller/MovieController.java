@@ -4,6 +4,7 @@ import com.unpredictableXMovies.MovieHub.dtos.MovieRequestDTO;
 import com.unpredictableXMovies.MovieHub.dtos.MovieResponseDTO;
 import com.unpredictableXMovies.MovieHub.entity.Movie;
 import com.unpredictableXMovies.MovieHub.service.MovieServiceHandler;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class MovieController
 
     // Create movie
     @PostMapping("/create")
-    public ResponseEntity<MovieResponseDTO> create(@RequestBody MovieRequestDTO requestDTO){
+    public ResponseEntity<MovieResponseDTO> create(@Valid @RequestBody MovieRequestDTO requestDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createMovie(requestDTO));
     }
 
