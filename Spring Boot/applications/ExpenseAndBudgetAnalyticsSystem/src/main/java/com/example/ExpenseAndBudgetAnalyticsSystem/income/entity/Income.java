@@ -54,4 +54,5 @@ public class Income
         this.updatedAt = LocalDateTime.now();
     }
 
+
 }
