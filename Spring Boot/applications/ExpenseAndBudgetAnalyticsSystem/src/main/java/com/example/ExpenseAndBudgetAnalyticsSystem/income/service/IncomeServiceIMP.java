@@ -46,7 +46,10 @@ public class IncomeServiceIMP implements IncomeServiceHelper
     public IncomeResponseDTO updateIncome(UUID id, IncomeRequestDTO requestDTO)
     {
 
-        return null;
+        Income income = repository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ResourceNotFoundException("Income Not Found"));
+        mapper.toUpdateEntity(income, requestDTO);
+        repository.save(income);
+        return mapper.toResponse(income);
     }
 
     @Override

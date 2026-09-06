@@ -21,6 +21,16 @@ public class IncomeMapper
         return income;
     }
 
+    // Update
+    public void toUpdateEntity(Income income, IncomeRequestDTO requestDTO)
+    {
+        income.setTitle(requestDTO.getTitle());
+        income.setDescription(requestDTO.getDescription());
+        income.setAmount(requestDTO.getAmount());
+        income.setSource(requestDTO.getSource());
+        income.setIncomeDate(requestDTO.getIncomeDate());
+    }
+
     // Entity to ResponseDTO
     public IncomeResponseDTO toResponse(Income income)
     {
