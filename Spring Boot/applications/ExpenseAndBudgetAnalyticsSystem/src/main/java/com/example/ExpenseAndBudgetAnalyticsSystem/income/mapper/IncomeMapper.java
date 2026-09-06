@@ -35,11 +35,14 @@ public class IncomeMapper
     public IncomeResponseDTO toResponse(Income income)
     {
         IncomeResponseDTO responseDTO = new IncomeResponseDTO();
+        responseDTO.setId(income.getId());
         responseDTO.setTitle(income.getTitle());
         responseDTO.setDescription(income.getDescription());
         responseDTO.setAmount(income.getAmount());
         responseDTO.setSource(income.getSource());
         responseDTO.setIncomeDate(income.getIncomeDate());
+        responseDTO.setCreatedAt(income.getCreatedAt());
+        responseDTO.setUpdatedAt(income.getUpdatedAt());
 
         return responseDTO;
     }
