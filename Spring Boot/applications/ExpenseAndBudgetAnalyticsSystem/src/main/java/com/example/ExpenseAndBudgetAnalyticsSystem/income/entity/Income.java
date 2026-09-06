@@ -42,6 +42,8 @@ public class Income
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    private boolean deleted = false;
+
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
