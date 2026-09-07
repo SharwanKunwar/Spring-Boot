@@ -14,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/expenses")
 public class ExpenseController
 {
     private final ExpenseServiceHelper service;
@@ -34,9 +35,23 @@ public class ExpenseController
 
     // Update expense
     @PutMapping("/update/{id}")
-    public ResponseEntity<ExpenseResponseDTO> updateExpense(UUID uuid, ExpenseRequestDTO requestDTO)
+    public ResponseEntity<ExpenseResponseDTO> updateExpense(@PathVariable UUID id, @RequestBody ExpenseRequestDTO requestDTO)
     {
+        return ResponseEntity.ok(service.updateExpense(id, requestDTO));
+    }
 
+    // // Hard delete
+    @DeleteMapping("/hard/{id}")
+    public ResponseEntity<String> hDelete(@PathVariable UUID id)
+    {
+        return ResponseEntity.ok(service.deleteHardly(id));
+    }
+
+    // Soft delete
+    @PatchMapping("/soft/{id}")
+    public ResponseEntity<String> sDelete(@PathVariable UUID id)
+    {
+        return ResponseEntity.ok(service.deleteSoftly(id));
     }
 
 
