@@ -1,20 +1,24 @@
-package com.example.ExpenseAndBudgetAnalyticsSystem.income.entity;
+package com.example.ExpenseAndBudgetAnalyticsSystem.expense.entity;
 
-import com.example.ExpenseAndBudgetAnalyticsSystem.income.enums.Source;
+import com.example.ExpenseAndBudgetAnalyticsSystem.expense.enums.Category;
+import com.example.ExpenseAndBudgetAnalyticsSystem.expense.enums.PaymentMethod;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "incomes")
-public class Income
+@Table(name = "expenses")
+public class Expense
 {
     @Id
     @GeneratedValue
@@ -31,10 +35,14 @@ public class Income
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Source source;
+    private Category category;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PaymentMethod paymentMethod;
 
     @Column(nullable = false)
-    private LocalDateTime incomeDate;
+    private LocalDateTime expenseDate;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
