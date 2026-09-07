@@ -42,8 +42,12 @@ public class ExpenseServiceIMP implements ExpenseServiceHelper
     }
 
     @Override
-    public ExpenseResponseDTO updateExpense(UUID id, ExpenseRequestDTO requestDTO) {
-        return null;
+    public ExpenseResponseDTO updateExpense(UUID id, ExpenseRequestDTO requestDTO)
+    {
+        Expense expense = repository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ResourceNotFoundException("Expense Not Found"));
+        mapper.toUpdateEntity(expense, requestDTO);
+        Expense savedExpense = repository.save(expense);
+        return mapper.toResponse(savedExpense);
     }
 
     @Override

@@ -21,6 +21,17 @@ public class ExpenseMapper
         return expense;
     }
 
+    // UpdateEntity
+    public void toUpdateEntity(Expense expense, ExpenseRequestDTO requestDTO)
+    {
+        expense.setTitle(expense.getTitle());
+        expense.setDescription(expense.getDescription());
+        expense.setAmount(expense.getAmount());
+        expense.setCategory(expense.getCategory());
+        expense.setPaymentMethod(expense.getPaymentMethod());
+        expense.setExpenseDate(expense.getExpenseDate());
+    }
+
     // Entity -> toResponse
     public ExpenseResponseDTO toResponse(Expense expense)
     {
