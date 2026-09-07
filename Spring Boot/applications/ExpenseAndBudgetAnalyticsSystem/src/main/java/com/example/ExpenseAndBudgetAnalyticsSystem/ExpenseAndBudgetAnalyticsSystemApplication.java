@@ -14,7 +14,7 @@ public class ExpenseAndBudgetAnalyticsSystemApplication {
 		System.setProperty("DB_PASSWORD", dotenv.get("DB_PASSWORD"));
 
 		SpringApplication.run(ExpenseAndBudgetAnalyticsSystemApplication.class, args);
-		System.out.println("System is Ready to Test");
+		System.out.print("You are Good to Go.");
 	}
 
 }
