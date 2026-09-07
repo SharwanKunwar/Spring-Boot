@@ -3,13 +3,16 @@ package com.example.ExpenseAndBudgetAnalyticsSystem.expense.dtos;
 import com.example.ExpenseAndBudgetAnalyticsSystem.expense.enums.Category;
 import com.example.ExpenseAndBudgetAnalyticsSystem.expense.enums.PaymentMethod;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ExpenseResponseDTO
 {
     private UUID id;
