@@ -1,8 +1,7 @@
-package com.unpredictableXMovies.MovieHub.service;
+package com.unpredictableXMovies.MovieHub.movie.service;
 
-import com.unpredictableXMovies.MovieHub.dtos.MovieRequestDTO;
-import com.unpredictableXMovies.MovieHub.dtos.MovieResponseDTO;
-import com.unpredictableXMovies.MovieHub.entity.Movie;
+import com.unpredictableXMovies.MovieHub.movie.dtos.MovieRequestDTO;
+import com.unpredictableXMovies.MovieHub.movie.dtos.MovieResponseDTO;
 
 import java.util.List;
 import java.util.UUID;

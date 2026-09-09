@@ -1,6 +1,7 @@
-package com.unpredictableXMovies.MovieHub.dtos;
+package com.unpredictableXMovies.MovieHub.movie.dtos;
 
-import com.unpredictableXMovies.MovieHub.enums.Genre;
+import com.unpredictableXMovies.MovieHub.movie.enums.Genre;
+import com.unpredictableXMovies.MovieHub.movie.enums.Type;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,9 @@ public class MovieRequestDTO
     @NotBlank(message = "Description is required.")
     @Size(min = 3, max = 300, message = "Description cannot be greater then 300  characters.")
     private String description;
+
+    @NotNull(message = "Type is required")
+    private Type type;
 
     @NotNull(message = "Genre is required.")
     private Genre genre;

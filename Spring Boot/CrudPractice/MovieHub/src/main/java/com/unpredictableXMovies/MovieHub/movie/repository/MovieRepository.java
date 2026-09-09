@@ -1,6 +1,6 @@
-package com.unpredictableXMovies.MovieHub.repository;
+package com.unpredictableXMovies.MovieHub.movie.repository;
 
-import com.unpredictableXMovies.MovieHub.entity.Movie;
+import com.unpredictableXMovies.MovieHub.movie.entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

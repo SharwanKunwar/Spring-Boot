@@ -1,18 +1,15 @@
-package com.unpredictableXMovies.MovieHub.controller;
+package com.unpredictableXMovies.MovieHub.movie.controller;
 
-import com.unpredictableXMovies.MovieHub.dtos.MovieRequestDTO;
-import com.unpredictableXMovies.MovieHub.dtos.MovieResponseDTO;
-import com.unpredictableXMovies.MovieHub.entity.Movie;
-import com.unpredictableXMovies.MovieHub.service.MovieServiceHandler;
+import com.unpredictableXMovies.MovieHub.movie.dtos.MovieRequestDTO;
+import com.unpredictableXMovies.MovieHub.movie.dtos.MovieResponseDTO;
+import com.unpredictableXMovies.MovieHub.movie.service.MovieServiceHandler;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController

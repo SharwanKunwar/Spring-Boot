@@ -1,12 +1,12 @@
-package com.unpredictableXMovies.MovieHub.service.implementation;
+package com.unpredictableXMovies.MovieHub.movie.service.implementation;
 
-import com.unpredictableXMovies.MovieHub.dtos.MovieRequestDTO;
-import com.unpredictableXMovies.MovieHub.dtos.MovieResponseDTO;
-import com.unpredictableXMovies.MovieHub.entity.Movie;
+import com.unpredictableXMovies.MovieHub.movie.dtos.MovieRequestDTO;
+import com.unpredictableXMovies.MovieHub.movie.dtos.MovieResponseDTO;
+import com.unpredictableXMovies.MovieHub.movie.entity.Movie;
 import com.unpredictableXMovies.MovieHub.exceptions.ResourceNotFound;
-import com.unpredictableXMovies.MovieHub.mapper.MovieMapper;
-import com.unpredictableXMovies.MovieHub.repository.MovieRepository;
-import com.unpredictableXMovies.MovieHub.service.MovieServiceHandler;
+import com.unpredictableXMovies.MovieHub.movie.mapper.MovieMapper;
+import com.unpredictableXMovies.MovieHub.movie.repository.MovieRepository;
+import com.unpredictableXMovies.MovieHub.movie.service.MovieServiceHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;

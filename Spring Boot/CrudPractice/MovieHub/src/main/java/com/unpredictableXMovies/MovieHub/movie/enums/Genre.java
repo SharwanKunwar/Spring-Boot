@@ -1,4 +1,4 @@
-package com.unpredictableXMovies.MovieHub.enums;
+package com.unpredictableXMovies.MovieHub.movie.enums;
 
 public enum Genre
 {

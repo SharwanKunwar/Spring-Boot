@@ -1,8 +1,8 @@
-package com.unpredictableXMovies.MovieHub.mapper;
+package com.unpredictableXMovies.MovieHub.movie.mapper;
 
-import com.unpredictableXMovies.MovieHub.dtos.MovieRequestDTO;
-import com.unpredictableXMovies.MovieHub.dtos.MovieResponseDTO;
-import com.unpredictableXMovies.MovieHub.entity.Movie;
+import com.unpredictableXMovies.MovieHub.movie.dtos.MovieRequestDTO;
+import com.unpredictableXMovies.MovieHub.movie.dtos.MovieResponseDTO;
+import com.unpredictableXMovies.MovieHub.movie.entity.Movie;
 
 public class MovieMapper
 {
@@ -12,6 +12,7 @@ public class MovieMapper
         return Movie.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())
+                .type(request.getType())
                 .genre(request.getGenre())
                 .releaseDate(request.getReleaseDate())
                 .imdbRating(request.getImdbRating())
@@ -27,6 +28,7 @@ public class MovieMapper
                 movie.getId(),
                 movie.getTitle(),
                 movie.getDescription(),
+                movie.getType(),
                 movie.getGenre(),
                 movie.getReleaseDate(),
                 movie.getImdbRating(),
@@ -40,6 +42,7 @@ public class MovieMapper
     {
         movie.setTitle(request.getTitle());
         movie.setDescription(request.getDescription());
+        movie.setType(request.getType());
         movie.setGenre(request.getGenre());
         movie.setReleaseDate(request.getReleaseDate());
         movie.setImdbRating(request.getImdbRating());
