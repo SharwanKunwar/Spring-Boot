@@ -15,5 +15,10 @@ public interface SeriesServiceHelper
     // Get by id
     SeriesResponseDTO getSeriesById(UUID id);
     // update
+    SeriesResponseDTO updateSeries(UUID id, SeriesRequestDTO requestDTO);
+    // delete
+    String delete(UUID id);
+    // soft delete
+    String deleteSoftly(UUID id);
 
 }
