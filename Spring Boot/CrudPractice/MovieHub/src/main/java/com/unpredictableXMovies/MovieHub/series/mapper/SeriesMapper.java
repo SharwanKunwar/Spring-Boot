@@ -23,6 +23,19 @@ public class SeriesMapper
                 .build();
     }
 
+    // update entity
+    public void toUpdateEntity(Series series, SeriesRequestDTO requestDTO)
+    {
+        series.setTitle(requestDTO.getTitle());
+        series.setDescription(requestDTO.getDescription());
+        series.setType(requestDTO.getType());
+        series.setGenre(requestDTO.getGenre());
+        series.setReleaseDate(requestDTO.getReleaseDate());
+        series.setImdbRating(requestDTO.getImdbRating());
+        series.setTotalSeasons(requestDTO.getTotalSeasons());
+        series.setPosterUrl(requestDTO.getPosterUrl());
+    }
+
     // Entity -> toResponse
     public SeriesResponseDTO toResponse(Series series)
     {

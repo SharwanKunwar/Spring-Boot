@@ -3,9 +3,6 @@ package com.unpredictableXMovies.MovieHub.series.entity;
 import com.unpredictableXMovies.MovieHub.movie.enums.Genre;
 import com.unpredictableXMovies.MovieHub.movie.enums.Type;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
