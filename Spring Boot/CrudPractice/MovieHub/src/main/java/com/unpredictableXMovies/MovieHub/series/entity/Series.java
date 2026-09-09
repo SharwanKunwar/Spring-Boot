@@ -44,12 +44,9 @@ public class Series
     private LocalDate releaseDate;
 
     @NotNull(message = "IMDB rating is required.")
-    @DecimalMin(value = "0.0", message = "Rating must be at least 0.0")
-    @DecimalMax(value = "10.0", message = "Rating must be at most 10.0")
     private Double imdbRating;
 
     @NotNull(message = "Total seasons is required.")
-    @Min(value = 1, message = "Total seasons must be at least 1.")
     private Integer totalSeasons;
 
 

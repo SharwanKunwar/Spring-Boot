@@ -3,9 +3,6 @@ package com.unpredictableXMovies.MovieHub.movie.entity;
 import com.unpredictableXMovies.MovieHub.movie.enums.Genre;
 import com.unpredictableXMovies.MovieHub.movie.enums.Type;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -41,9 +38,7 @@ public class Movie
     @Column(name = "release_date")
     private LocalDate releaseDate;
 
-    @NotNull(message = "IMDB rating is required.")
-    @DecimalMin(value = "0.0", message = "Rating must be at least 0.0")
-    @DecimalMax(value = "10.0", message = "Rating must be at most 10.0")
+    @Column(name = "imdb_rating")
     private Double imdbRating;
 
     @Column(name = "length")
