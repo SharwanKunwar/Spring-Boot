@@ -38,7 +38,6 @@ public class Product
     @Column(nullable = false)
     private Integer stock;
 
-
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
