@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static com.example.DigitalXShop.product.mapper.ProductMapper.NEPAL_ZONE;
+
 @Entity
 @Getter
 @Setter
@@ -41,7 +43,7 @@ public class Product
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+
     private LocalDateTime updatedAt;
 
     @Builder.Default
@@ -53,15 +55,10 @@ public class Product
     @PrePersist
     protected void onCreate()
     {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(NEPAL_ZONE);
         createdAt = now;
         updatedAt = now;
     }
 
-    @PreUpdate
-    protected void onUpdate()
-    {
-        updatedAt = LocalDateTime.now();
-    }
 
 }

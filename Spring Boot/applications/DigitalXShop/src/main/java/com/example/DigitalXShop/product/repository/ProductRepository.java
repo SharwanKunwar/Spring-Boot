@@ -12,6 +12,6 @@ import java.util.UUID;
 public interface ProductRepository extends JpaRepository<Product, UUID>
 {
     // Manual Queries
-    Optional<Product> findByIdAndDeleteFalse(UUID id);
+    Optional<Product> findByIdAndDeletedFalse(UUID id);
     List<Product> findByDeletedFalse();
 }

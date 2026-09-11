@@ -2,6 +2,7 @@ package com.example.DigitalXShop.product.enums;
 
 public enum Category
 {
+    SMARTPHONE,
     ELECTRONICS,
     DIGITAL,
     CLOTHING,

@@ -5,9 +5,14 @@ import com.example.DigitalXShop.product.dtos.ProductResponseDTO;
 import com.example.DigitalXShop.product.entity.Product;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 @Component
 public class ProductMapper
 {
+    public static final ZoneId NEPAL_ZONE = ZoneId.of("Asia/Kathmandu");
+
     //DTO -> toEntity
     public Product toEntity(ProductRequestDTO requestDTO)
     {
@@ -30,6 +35,7 @@ public class ProductMapper
         product.setPrice(requestDTO.getPrice());
         product.setCategory(requestDTO.getCategory());
         product.setStock(requestDTO.getStock());
+        product.setUpdatedAt(LocalDateTime.now(NEPAL_ZONE));
     }
 
 

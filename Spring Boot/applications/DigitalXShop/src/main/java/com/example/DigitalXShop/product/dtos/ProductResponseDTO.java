@@ -1,6 +1,7 @@
 package com.example.DigitalXShop.product.dtos;
 
 import com.example.DigitalXShop.product.enums.Category;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +24,11 @@ public class ProductResponseDTO
     private BigDecimal price;
     private Category category;
     private Integer stock;
+
+    @JsonFormat(pattern = "MMMM d, yyyy 'at' h:mm a")
     private LocalDateTime createdAt;
+
+    @JsonFormat(pattern = "MMMM d, yyyy 'at' h:mm a")
     private LocalDateTime updatedAt;
     private boolean active = true;
 }

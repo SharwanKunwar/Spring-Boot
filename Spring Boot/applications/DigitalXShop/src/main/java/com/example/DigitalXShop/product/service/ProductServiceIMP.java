@@ -39,14 +39,14 @@ public class ProductServiceIMP implements ProductServiceHelper
     @Override
     public ProductResponseDTO getProductById(UUID id)
     {
-        Product product = repository.findByIdAndDeleteFalse(id).orElseThrow(() -> new ResourceNotFound("Product Not Found"));
+        Product product = repository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ResourceNotFound("Product Not Found"));
         return mapper.toResponse(product);
     }
 
     @Override
     public ProductResponseDTO updateProduct(UUID id, ProductRequestDTO requestDTO)
     {
-        Product product = repository.findByIdAndDeleteFalse(id).orElseThrow(() -> new ResourceNotFound("Product Not Found"));
+        Product product = repository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ResourceNotFound("Product Not Found"));
         mapper.toUpdateEntity(product, requestDTO);
         repository.save(product);
         return mapper.toResponse(product);
@@ -55,7 +55,7 @@ public class ProductServiceIMP implements ProductServiceHelper
     @Override
     public String delete(UUID id)
     {
-        Product product = repository.findByIdAndDeleteFalse(id).orElseThrow(() -> new ResourceNotFound("Product Not Found"));
+        Product product = repository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ResourceNotFound("Product Not Found"));
         repository.delete(product);
         return "Product Deleted Successfully";
     }
@@ -63,7 +63,7 @@ public class ProductServiceIMP implements ProductServiceHelper
     @Override
     public String deleteSoftly(UUID id)
     {
-        Product product = repository.findByIdAndDeleteFalse(id).orElseThrow(() -> new ResourceNotFound("Product Not Found"));
+        Product product = repository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ResourceNotFound("Product Not Found"));
         product.setDeleted(true);
         repository.save(product);
         return "Product Deleted Successfully";
