@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Product
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false)
@@ -44,7 +44,10 @@ public class Product
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Builder.Default
     private boolean active = true;
+
+    @Builder.Default
     private boolean deleted = false;
 
     @PrePersist

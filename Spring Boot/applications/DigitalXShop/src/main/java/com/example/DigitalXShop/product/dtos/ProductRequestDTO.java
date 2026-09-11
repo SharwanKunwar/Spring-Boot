@@ -1,10 +1,7 @@
 package com.example.DigitalXShop.product.dtos;
 
 import com.example.DigitalXShop.product.enums.Category;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,9 +16,11 @@ import java.math.BigDecimal;
 public class ProductRequestDTO
 {
     @NotBlank(message = "Name is required")
+    @Size(max = 150, message = "Name must not exceed 150 characters")
     private String name;
 
     @NotBlank(message = "Description is required")
+    @Size(max = 300, message = "Description must not exceed 300 characters")
     private String description;
 
     private String color;
