@@ -30,10 +30,7 @@ public class ProductMapper
         product.setPrice(requestDTO.getPrice());
         product.setCategory(requestDTO.getCategory());
         product.setStock(requestDTO.getStock());
-
     }
-
-
 
 
     //Entity -> toResponse
