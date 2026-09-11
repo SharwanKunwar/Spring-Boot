@@ -22,7 +22,7 @@ public class ProductMapper
     }
 
     //Update entity
-    public void update(Product product, ProductRequestDTO requestDTO)
+    public void toUpdateEntity(Product product, ProductRequestDTO requestDTO)
     {
         product.setName(requestDTO.getName());
         product.setDescription(requestDTO.getDescription());
