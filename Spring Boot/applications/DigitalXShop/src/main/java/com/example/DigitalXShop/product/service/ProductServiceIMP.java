@@ -37,7 +37,7 @@ public class ProductServiceIMP implements ProductServiceHelper
     }
 
     @Override
-    public ProductResponseDTO getById(UUID id)
+    public ProductResponseDTO getProductById(UUID id)
     {
         Product product = repository.findByIdAndDeleteFalse(id).orElseThrow(() -> new ResourceNotFound("Product Not Found"));
         return mapper.toResponse(product);

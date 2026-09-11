@@ -14,7 +14,7 @@ public interface ProductServiceHelper
     List<ProductResponseDTO> getAllProduct();
 
     /** Get product by ID. */
-    ProductResponseDTO getById(UUID id);
+    ProductResponseDTO getProductById(UUID id);
 
     /** Update product by ID. */
     ProductResponseDTO updateProduct(UUID id, ProductRequestDTO requestDTO);
