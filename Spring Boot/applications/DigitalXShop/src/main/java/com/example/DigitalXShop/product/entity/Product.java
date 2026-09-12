@@ -43,7 +43,6 @@ public class Product
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-
     private LocalDateTime updatedAt;
 
     @Builder.Default
