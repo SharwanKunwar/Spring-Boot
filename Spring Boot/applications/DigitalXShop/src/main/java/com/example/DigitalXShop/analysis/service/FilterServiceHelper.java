@@ -9,4 +9,7 @@ public interface FilterServiceHelper
 {
     // Get all filtered products by category
     List<ProductResponseDTO> filterByCategory(Category category);
+
+    // Get the total count of products
+    Long totalProducts();
 }

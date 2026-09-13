@@ -25,5 +25,12 @@ public class FilterServiceIMP implements FilterServiceHelper
         return products.stream().map(mapper::toResponse).toList();
     }
 
+    // Filter How many product we have
+    @Override
+    public Long totalProducts()
+    {
+        return repository.count();
+    }
+
 
 }
