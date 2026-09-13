@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
+import java.util.UUID;
 
 
 @Component
@@ -13,6 +14,7 @@ public class LogginFilter implements Filter
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
     {
+        Long start = System.currentTimeMillis();
 
         System.out.println("Hi\n");
 
@@ -23,12 +25,17 @@ public class LogginFilter implements Filter
         System.out.println("Method: "+servletRequest.getMethod());
         System.out.println("RequestURI: "+servletRequest.getRequestURI());
 
+        String id = UUID.randomUUID().toString();
+        servletResponse.setHeader("Request-ID",id);
 
 
         chain.doFilter(request, response);
 
+        Long duration = System.currentTimeMillis() - start;
         System.out.println("\n\n-------------- Outgoing Response --------------");
+        System.out.println("Response ID : "+id);
         System.out.println("Status: "+servletResponse.getStatus());
+        System.out.println("Response Speed : "+duration+" M/s");
 
 
 

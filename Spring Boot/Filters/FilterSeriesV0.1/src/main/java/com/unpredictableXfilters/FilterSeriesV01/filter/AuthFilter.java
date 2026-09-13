@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component
-@Primary
+//@Component
+//@Primary
 public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
@@ -20,6 +20,7 @@ public class AuthFilter implements Filter {
 
 
         String token = httpServletRequest.getHeader("token");
+
         if(token == null || !token.equals("143"))
         {
             httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
