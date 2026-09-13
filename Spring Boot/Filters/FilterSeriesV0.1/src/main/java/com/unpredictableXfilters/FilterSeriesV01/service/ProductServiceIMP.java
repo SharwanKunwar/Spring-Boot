@@ -22,8 +22,6 @@ public class ProductServiceIMP implements ProductServiceHandler
 //
 //        }
 
-        System.out.println("Product is Created.");
-
         return response;
     }
 }

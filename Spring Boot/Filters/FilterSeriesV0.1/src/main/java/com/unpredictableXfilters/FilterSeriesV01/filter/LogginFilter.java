@@ -29,14 +29,16 @@ public class LogginFilter implements Filter
         servletResponse.setHeader("Request-ID",id);
 
 
-        chain.doFilter(request, response);
-
-        Long duration = System.currentTimeMillis() - start;
-        System.out.println("\n\n-------------- Outgoing Response --------------");
-        System.out.println("Response ID : "+id);
-        System.out.println("Status: "+servletResponse.getStatus());
-        System.out.println("Response Speed : "+duration+" M/s");
-
+        try {
+            chain.doFilter(request, response);
+        }finally {
+            Long duration = System.currentTimeMillis() - start;
+            System.out.println("\n\n-------------- Outgoing Response --------------");
+            System.out.println("Response ID : "+id);
+            System.out.println("Status: "+servletResponse.getStatus());
+            System.out.println("Product is created");
+            System.out.println("Response Speed : "+duration+" M/s");
+        }
 
 
 
