@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 
-@Component
+//@Component
 public class LogginFilter implements Filter
 {
     @Override
