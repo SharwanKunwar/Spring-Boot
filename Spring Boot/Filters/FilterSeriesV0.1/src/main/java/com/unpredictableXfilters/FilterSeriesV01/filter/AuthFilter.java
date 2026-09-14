@@ -21,12 +21,24 @@ public class AuthFilter implements Filter {
 
 
         String token = httpServletRequest.getHeader("token");
+        String api_key = httpServletRequest.getHeader("api_key");
 
-        if(token == null || !token.equals("143"))
+        if(token == null || !token.equals("143") || !api_key.equals("hell"))
         {
             httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             System.out.println("Return where you come from and get your token correct first!!!");
             return;
+        }
+
+        if(api_key == null || !api_key.equals("hell")){
+            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            httpServletResponse.setContentType("application/json");
+            httpServletResponse.getWriter().write(
+                    "\n" +
+                            "{\n" +
+                            "    \"message:\" \"invalid\"\n" +
+                            "}"
+            );
         }
 
         if(token != null || token.equals("143"))
