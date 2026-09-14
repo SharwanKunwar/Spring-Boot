@@ -1,9 +1,12 @@
 package com.unpredictableXfilters.FilterSeriesV01.filter;
 
-import jakarta.servlet.*;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -11,51 +14,57 @@ import java.io.IOException;
 
 @Component
 @Order(1)
-public class AuthFilter implements Filter {
+public class AuthFilter implements Filter
+{
+
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
-    {
-        System.out.println("Hi you are in Auth Filter");
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-
         String token = httpServletRequest.getHeader("token");
-        String api_key = httpServletRequest.getHeader("api_key");
+        String apiKey = httpServletRequest.getHeader("api_key");
 
-        if(token == null || !token.equals("143") || !api_key.equals("hell"))
+        // Validate token
+        if (token == null || !token.equals("143"))
         {
-            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            httpServletResponse.setContentType("application/json");
-            httpServletResponse.getWriter().write(
-                    "{\n" +
-                            "    \"status\": 401,\n" +
-                            "    \"message\": \"Return where you come from and get your token correct first!!!\"\n" +
-                            "}"
+            sendUnauthorizedResponse(
+                    httpServletResponse,
+                    "Invalid or missing token!"
             );
-
             return;
         }
 
-        if(api_key == null || !api_key.equals("hell")){
-            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            httpServletResponse.setContentType("application/json");
-            httpServletResponse.getWriter().write(
-                    "\n" +
-                            "{\n" +
-                            "    \"message:\" \"invalid\"\n" +
-                            "}"
-            );
-        }
-
-        if(token != null || token.equals("143"))
+        // Validate API key
+        if (apiKey == null || !apiKey.equals("hell"))
         {
-            System.out.println("Your token is correct. you are good to go.\n");
-            chain.doFilter(httpServletRequest, httpServletResponse);
+            sendUnauthorizedResponse(
+                    httpServletResponse,
+                    "Invalid or missing API key!"
+            );
+            return;
         }
 
+        // Both token and API key are valid
 
-        System.out.println("Bye");
+        chain.doFilter(httpServletRequest, httpServletResponse);
 
     }
+
+    private void sendUnauthorizedResponse(HttpServletResponse response, String message) throws IOException
+    {
+
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        response.getWriter().write(
+                "{\n" +
+                        "    \"status\": 401,\n" +
+                        "    \"message\": \"" + message + "\"\n" +
+                        "}"
+        );
+    }
+
+
+
 }
