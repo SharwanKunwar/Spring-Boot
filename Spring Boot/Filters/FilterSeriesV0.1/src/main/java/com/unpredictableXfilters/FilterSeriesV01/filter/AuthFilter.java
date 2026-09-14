@@ -26,7 +26,14 @@ public class AuthFilter implements Filter {
         if(token == null || !token.equals("143") || !api_key.equals("hell"))
         {
             httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            System.out.println("Return where you come from and get your token correct first!!!");
+            httpServletResponse.setContentType("application/json");
+            httpServletResponse.getWriter().write(
+                    "{\n" +
+                            "    \"status\": 401,\n" +
+                            "    \"message\": \"Return where you come from and get your token correct first!!!\"\n" +
+                            "}"
+            );
+
             return;
         }
 
