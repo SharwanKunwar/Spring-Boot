@@ -18,7 +18,7 @@ public class UserController
 {
     private final UserServiceHandler service;
 
-    // create end point
+    // create
     @PostMapping
     public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody UserRequestDTO requestDTO)
     {
