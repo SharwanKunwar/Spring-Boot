@@ -1,5 +1,6 @@
 package com.unpredictableXRelations.UserAndTaskRelation.task.dtos;
 
+import com.unpredictableXRelations.UserAndTaskRelation.user.entity.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -17,4 +18,6 @@ public class TaskRequestDTO
     @NotBlank(message = "Description is required.")
     @Size(max = 300, message = "Description must be in 300 character.")
     private String description;
+
+
 }
