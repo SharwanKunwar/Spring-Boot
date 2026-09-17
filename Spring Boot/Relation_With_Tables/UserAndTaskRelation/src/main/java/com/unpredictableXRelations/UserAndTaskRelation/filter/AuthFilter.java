@@ -17,6 +17,12 @@ public class AuthFilter implements Filter {
         if(token == null || !token.equals("123"))
         {
             httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            httpServletResponse.getWriter().write(
+                    "{\n" +
+                            "    \"status\":\"401\",\n"+
+                            "    \"message\": \"You are wrong here!!\"\n" +
+                            "}"
+            );
             return;
         }
 
