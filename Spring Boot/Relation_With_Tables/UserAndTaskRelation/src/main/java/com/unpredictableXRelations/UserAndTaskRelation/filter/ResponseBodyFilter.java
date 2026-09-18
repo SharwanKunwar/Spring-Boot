@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.ContentCachingRequestWrapper;
+import org.springframework.web.util.ContentCachingResponseWrapper;
 
 import java.io.IOException;
 
@@ -16,7 +17,23 @@ public class ResponseBodyFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-//        ContentCachingRequestWrapper
+        ContentCachingResponseWrapper wrappedResponse = new ContentCachingResponseWrapper(httpServletResponse);
+
+        chain.doFilter(request, wrappedResponse);
+
+
+        byte[] originalBodyBytes = wrappedResponse.getContentAsByteArray();
+        String originalBody = new String(originalBodyBytes);
+        String modifiedBody =
+                """
+                {
+                    "originalResponse": %s,
+                    "appName": "Unpredictable"
+                }
+                """.formatted(originalBody);
+
+        wrappedResponse.getWriter().write(modifiedBody);
+        wrappedResponse.copyBodyToResponse();
 
     }
 }
