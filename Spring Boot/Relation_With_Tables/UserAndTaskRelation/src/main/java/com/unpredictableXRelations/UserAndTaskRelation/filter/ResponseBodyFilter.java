@@ -31,6 +31,7 @@ public class ResponseBodyFilter implements Filter {
                     "appName": "Unpredictable"
                 }
                 """.formatted(originalBody);
+        wrappedResponse.resetBuffer();
 
         wrappedResponse.getWriter().write(modifiedBody);
         wrappedResponse.copyBodyToResponse();
