@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TaskController
 {
     @PostMapping
-    public ResponseEntity<String> createTask(){
+    public ResponseEntity<String> createTask()
+    {
+        System.out.println("Controller called.");
         return ResponseEntity.status(HttpStatus.CREATED).body("Task is created.");
     }
 }
