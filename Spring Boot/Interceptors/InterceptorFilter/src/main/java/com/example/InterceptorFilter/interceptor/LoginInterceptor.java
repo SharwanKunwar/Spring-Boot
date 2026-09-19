@@ -15,12 +15,17 @@ public class LoginInterceptor implements HandlerInterceptor
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
     {
         System.out.println("--------------------------------------------- Pre Handler scope -----");
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        String controllerName = handlerMethod.getBeanType().getName();
-        String methodName = handlerMethod.getMethod().getName();
 
-        System.out.println("Controller : "+controllerName);
-        System.out.println("Method : "+methodName);
+        // we are checking that handler is Handler type or not if yes we do else -> else
+        if(handler instanceof HandlerMethod handlerMethod)
+        {
+            String controllerName = handlerMethod.getBeanType().getName();
+            String methodName = handlerMethod.getMethod().getName();
+            System.out.println("Controller : "+controllerName);
+            System.out.println("Method : "+methodName);
+        }
+
+
         System.out.println("--------------------------------------------------------\n");
         return true;
     }
