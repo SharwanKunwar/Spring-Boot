@@ -15,20 +15,34 @@ public class LoginInterceptor implements HandlerInterceptor
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
     {
         System.out.println("--------------------------------------------- Pre Handler scope -----");
-
+        request.setAttribute("startTime", System.currentTimeMillis());
         // we are checking that handler is Handler type or not if yes we do else -> else
         if(handler instanceof HandlerMethod handlerMethod)
         {
+            String requestURI = request.getRequestURI();
+            String quareyString = request.getQueryString();
+            String clientIP = request.getRemoteAddr();
+            String token = request.getHeader("token");
             String controllerName = handlerMethod.getBeanType().getName();
             String methodName = handlerMethod.getMethod().getName();
+
+            //request info
+            System.out.println("Request URI : "+requestURI);
+            System.out.println("Quarry string : "+quareyString);
+            System.out.println("Client IP : "+clientIP);
+            System.out.println("Token : "+token);
+
+            // handler info
             System.out.println("Controller : "+controllerName);
             System.out.println("Method : "+methodName);
-        }
 
+        }
 
         System.out.println("--------------------------------------------------------\n");
         return true;
     }
+
+
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
@@ -40,5 +54,9 @@ public class LoginInterceptor implements HandlerInterceptor
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) throws Exception
     {
         System.out.println("--------------------------------------------- After Completion Handler scope -----");
+        long start = (Long) request.getAttribute("startTime");
+        long finalTime = System.currentTimeMillis() - start;
+        System.out.println("After Completion it took : "+finalTime+" ms");
+
     }
 }
