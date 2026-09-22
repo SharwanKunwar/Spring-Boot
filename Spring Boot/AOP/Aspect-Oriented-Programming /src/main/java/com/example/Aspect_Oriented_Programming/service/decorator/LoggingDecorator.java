@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
-@Primary
 public class LoggingDecorator implements StudentServiceHandler
 {
     private final StudentService service;
