@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface SeriesRepository extends JpaRepository<Series, UUID>
 {
     // Manual queries
-    Optional<Series> findByIdAndDeleteFalse(UUID id);
+    Optional<Series> findByIdAndDeletedFalse(UUID id);
     List<Series> findByDeletedFalse();
 
 }

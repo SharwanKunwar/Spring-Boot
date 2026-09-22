@@ -38,7 +38,7 @@ public class SeriesServiceIMP implements SeriesServiceHelper
     @Override
     public SeriesResponseDTO getSeriesById(UUID id)
     {
-        Series series = repository.findByIdAndDeleteFalse(id).orElseThrow(() -> new ResourceNotFound("Series Not Found"));
+        Series series = repository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ResourceNotFound("Series Not Found"));
         return mapper.toResponse(series);
     }
 
@@ -54,7 +54,7 @@ public class SeriesServiceIMP implements SeriesServiceHelper
     @Override
     public String delete(UUID id)
     {
-        Series series = repository.findByIdAndDeleteFalse(id).orElseThrow(() -> new ResourceNotFound("Series Not Found"));
+        Series series = repository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ResourceNotFound("Series Not Found"));
         repository.delete(series);
         return "Series Deleted Successfully";
     }
@@ -62,7 +62,7 @@ public class SeriesServiceIMP implements SeriesServiceHelper
     @Override
     public String deleteSoftly(UUID id)
     {
-        Series series = repository.findByIdAndDeleteFalse(id).orElseThrow(() -> new ResourceNotFound("Series Not Found"));
+        Series series = repository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ResourceNotFound("Series Not Found"));
         series.setDeleted(true);
         repository.save(series);
         return "Series Deleted Successfully";
