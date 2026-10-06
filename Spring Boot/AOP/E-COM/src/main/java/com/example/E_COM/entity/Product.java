@@ -1,5 +1,6 @@
 package com.example.E_COM.entity;
 
+import com.example.E_COM.enums.Category;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,4 +33,8 @@ public class Product
 
     @Column(nullable = false)
     private Long quantity;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
+    private Category category;
 }
