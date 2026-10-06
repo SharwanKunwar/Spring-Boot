@@ -2,16 +2,14 @@ package com.example.E_COM.entity;
 
 import com.example.E_COM.enums.Category;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
 @Getter
+@Builder
 @Setter
 @Table(name = "products")
 @AllArgsConstructor
