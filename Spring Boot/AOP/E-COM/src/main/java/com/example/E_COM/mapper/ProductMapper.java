@@ -6,7 +6,7 @@ import com.example.E_COM.entity.Product;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProjectMapper
+public class ProductMapper
 {
     //DTO to toEntity
     public static Product toEntity(ProductRequestDTO requestDTO)
