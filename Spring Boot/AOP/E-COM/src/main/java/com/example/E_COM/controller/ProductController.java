@@ -30,4 +30,11 @@ public class ProductController
     {
         return ResponseEntity.ok(service.getAllProducts());
     }
+
+    // delete all product
+    @DeleteMapping("/all")
+    public ResponseEntity<String> deleteAllProducts()
+    {
+        return ResponseEntity.ok(service.deleteAllProducts());
+    }
 }

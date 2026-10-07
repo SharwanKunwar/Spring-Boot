@@ -33,4 +33,11 @@ public class ProductService implements ProductServiceHelper
                 .map(ProductMapper::toResponse)
                 .toList();
     }
+
+    @Override
+    public String deleteAllProducts()
+    {
+        productRepository.deleteAll();
+        return "All products are gone : Deleted.";
+    }
 }

@@ -9,4 +9,5 @@ public interface ProductServiceHelper
 {
     ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO);
     List<ProductResponseDTO> getAllProducts();
+    String deleteAllProducts();
 }
