@@ -2,6 +2,7 @@ package com.example.E_COM.aspect;
 
 import com.example.E_COM.dtos.ProductResponseDTO;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
@@ -51,4 +52,28 @@ public class LoggingAspect
         System.out.println("Method finished: "
                 + joinPoint.getSignature().getName());
     }
+
+    // 5. @Around
+    @Around("execution(* com.example.E_COM.service.implementation.ProductService.createProduct(..))")
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+
+        System.out.println("========== @Around - BEFORE ==========");
+
+        long start = System.currentTimeMillis();
+
+        // Actual method execution
+        Object result = joinPoint.proceed();
+
+        long end = System.currentTimeMillis();
+
+        System.out.println("========== @Around - AFTER ==========");
+
+        System.out.println("Execution time: "
+                + (end - start) + " ms");
+
+        System.out.println("Result: " + result);
+
+        return result;
+    }
+
 }
