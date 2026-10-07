@@ -2,10 +2,7 @@ package com.example.E_COM.aspect;
 
 import com.example.E_COM.dtos.ProductResponseDTO;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -44,5 +41,14 @@ public class LoggingAspect
         System.out.println("========== @AfterThrowing ==========");
         System.out.println("Method: " + joinPoint.getSignature().getName());
         System.out.println("Exception: " + ex.getMessage());
+    }
+
+    // 4. @After
+    @After("execution(* com.example.E_COM.service.implementation.ProductService.createProduct(..))")
+    public void logAfter(JoinPoint joinPoint) {
+
+        System.out.println("========== @After ==========");
+        System.out.println("Method finished: "
+                + joinPoint.getSignature().getName());
     }
 }
