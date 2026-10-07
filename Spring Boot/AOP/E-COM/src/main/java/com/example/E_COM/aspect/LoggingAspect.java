@@ -26,9 +26,12 @@ public class LoggingAspect
         }
     }
 
-//    @AfterReturning(value = "execution(* com.example.E_COM.service.implementation.ProductService.createProduct(..))", returning = "res")
-//    public void logAfterReturning(ProductResponseDTO res){
-//        res.setName("phone");        // don't do these kind of things in afterREturning. this work is good to be in around.
-//        System.out.println("Target method : "+ res);
-//    }
+    // 2. @AfterReturning
+    @AfterReturning(value = "execution(* com.example.E_COM.service.implementation.ProductService.createProduct(..))", returning = "res")
+    public void logAfterReturning(ProductResponseDTO res)
+    {
+        System.out.println("========== @AfterReturning ==========");
+        System.out.println("Product created successfully.");
+        System.out.println("Response: " + res);
+    }
 }
