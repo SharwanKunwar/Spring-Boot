@@ -10,12 +10,32 @@ import org.springframework.stereotype.Component;
 public class ResponseTime
 {
     @Around("execution(* com.example.E_COM.service..*(..))")
-    public Object calculateResponseTime(ProceedingJoinPoint joinPoint) throws Throwable
+    public Object calculateResponseTime1(ProceedingJoinPoint joinPoint) throws Throwable
     {
 
         long startTime = System.currentTimeMillis();
 
         // Execute the actual service method
+        Object result = joinPoint.proceed();
+
+        long endTime = System.currentTimeMillis();
+
+        long executionTime = endTime - startTime;
+
+        System.out.println(
+                "Method: " + joinPoint.getSignature().getName()
+                        + " | Execution Time: " + executionTime + " ms"
+        );
+
+        return result;
+    }
+
+    @Around("within(com.example.E_COM.service..*)")
+    public Object calculateResponseTime2(ProceedingJoinPoint joinPoint) throws Throwable
+    {
+
+        long startTime = System.currentTimeMillis();
+
         Object result = joinPoint.proceed();
 
         long endTime = System.currentTimeMillis();
