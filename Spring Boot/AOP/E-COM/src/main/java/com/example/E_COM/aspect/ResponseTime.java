@@ -49,6 +49,26 @@ public class ResponseTime
 
         return result;
     }
+
+    @Around("@annotation(com.example.E_COM.aspect.customAnnotation.ResponseTracker)")
+    public Object calculateResponseTime3(ProceedingJoinPoint joinPoint) throws Throwable
+    {
+
+        long startTime = System.currentTimeMillis();
+
+        Object result = joinPoint.proceed();
+
+        long endTime = System.currentTimeMillis();
+
+        long executionTime = endTime - startTime;
+
+        System.out.println(
+                "Method: " + joinPoint.getSignature().getName()
+                        + " | Execution Time: " + executionTime + " ms"
+        );
+
+        return result;
+    }
 }
 
 

@@ -1,11 +1,13 @@
 package com.example.E_COM.service.implementation;
 
+import com.example.E_COM.aspect.customAnnotation.ResponseTracker;
 import com.example.E_COM.dtos.ProductRequestDTO;
 import com.example.E_COM.dtos.ProductResponseDTO;
 import com.example.E_COM.entity.Product;
 import com.example.E_COM.mapper.ProductMapper;
 import com.example.E_COM.repository.ProductRepository;
 import com.example.E_COM.service.ProductServiceHelper;
+import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ public class ProductService implements ProductServiceHelper
         return ProductMapper.toResponse(savedProduct);
     }
 
+    @ResponseTracker
     @Override
     public List<ProductResponseDTO> getAllProducts()
     {
