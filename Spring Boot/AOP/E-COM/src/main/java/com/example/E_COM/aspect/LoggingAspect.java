@@ -77,3 +77,29 @@ public class LoggingAspect
     }
 
 }
+
+
+
+/**
+ * This class demonstrates the different types of Spring AOP Advices.
+ *
+ * In this class, our main focus is on understanding how different Advices work,
+ * rather than focusing on Pointcuts.
+ *
+ * We use the same Pointcut expression for the ProductService.createProduct(..)
+ * method and apply different types of Advice:
+ *
+ * 1. @Before          -> Executes before the target method.
+ * 2. @AfterReturning  -> Executes after the method successfully returns.
+ * 3. @AfterThrowing   -> Executes when the method throws an exception.
+ * 4. @After           -> Executes after the method finishes, whether it succeeds or fails.
+ * 5. @Around          -> Gives complete control over the method execution
+ *                        and can execute code before and after the method.
+ *
+ * The purpose of this class is to understand the lifecycle and behavior
+ * of each type of Advice in Spring AOP.
+ *
+ * Note:
+ * Pointcut expressions are kept simple and mostly the same throughout this class
+ * because the primary focus here is on understanding Advices.
+ */
