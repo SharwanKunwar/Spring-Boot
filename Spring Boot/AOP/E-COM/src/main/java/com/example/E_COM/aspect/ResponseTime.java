@@ -69,6 +69,27 @@ public class ResponseTime
 
         return result;
     }
+
+    @Around("bean(productService)")
+    public Object calculateResponseTime4(ProceedingJoinPoint joinPoint) throws Throwable
+    {
+
+        long startTime = System.currentTimeMillis();
+
+        Object result = joinPoint.proceed();
+
+        long endTime = System.currentTimeMillis();
+
+        long executionTime = endTime - startTime;
+
+        System.out.println(
+                "Method: " + joinPoint.getSignature().getName()
+                        + " | Execution Time: " + executionTime + " ms"
+        );
+
+        return result;
+    }
+
 }
 
 
