@@ -90,6 +90,26 @@ public class ResponseTime
         return result;
     }
 
+    @Around("bean(productService) || bean(productController")  // any logical operator : & || ! ... even single like bean(productService)
+    public Object calculateResponseTimeDemoJoin(ProceedingJoinPoint joinPoint) throws Throwable
+    {
+
+        long startTime = System.currentTimeMillis();
+
+        Object result = joinPoint.proceed();
+
+        long endTime = System.currentTimeMillis();
+
+        long executionTime = endTime - startTime;
+
+        System.out.println(
+                "Method: " + joinPoint.getSignature().getName()
+                        + " | Execution Time: " + executionTime + " ms"
+        );
+
+        return result;
+    }
+
 }
 
 
