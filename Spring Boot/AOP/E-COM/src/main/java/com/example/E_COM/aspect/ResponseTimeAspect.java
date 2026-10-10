@@ -3,18 +3,13 @@ package com.example.E_COM.aspect;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class ResponseTime {
+public class ResponseTimeAspect {
 
-    // Defines a reusable pointcut for public service methods
-    @Pointcut("within(com.example.E_COM.service..*(..))) && execution(public * * (..))")
-    public void logPublicServiceMethod() {
-        // Empty method used to name the pointcut
-    }
+
 
     // Measures execution time using the named pointcut
     @Around("logPublicServiceMethod()")
@@ -96,6 +91,19 @@ public class ResponseTime {
                 + " | Execution Time: " + (endTime - startTime) + " ms");
         return result;
     }
+
+    @Around("com.example.E_COM.aspect.pointcuts.controllerLayer()")
+    public Object calculateResponseTime5(ProceedingJoinPoint joinPoint)
+            throws Throwable {
+        long startTime = System.currentTimeMillis();
+        Object result = joinPoint.proceed();
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("Method: " + joinPoint.getSignature().getName()
+                + " | Execution Time: " + (endTime - startTime) + " ms");
+        return result;
+    }
+
 }
 
 /*
