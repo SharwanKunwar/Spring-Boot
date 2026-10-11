@@ -1,9 +1,15 @@
 package com.practice.CustomAnnoatation.dtos;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
+@Data
+@Builder
+@AllArgsConstructor
 public class BookRequestDTO
 {
     @NotBlank(message = "Title is required.")
