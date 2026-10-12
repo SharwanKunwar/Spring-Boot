@@ -9,6 +9,7 @@ public class CustomAnnoatationApplication
 	public static void main(String[] args)
 	{
 		SpringApplication.run(CustomAnnoatationApplication.class, args);
+		System.out.println("Good to go.");
 	}
 
 }

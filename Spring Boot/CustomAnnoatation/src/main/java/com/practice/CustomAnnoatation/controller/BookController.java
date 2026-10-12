@@ -26,10 +26,5 @@ public class BookController
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createBook(bookRequestDTO));
     }
 
-    // get all
-    @GetMapping
-    public ResponseEntity<List<BookResponseDTO>> getAllBooks()
-    {
-        return ResponseEntity.status(HttpStatus.OK).body(service.getAllBooks());
-    }
+
 }
