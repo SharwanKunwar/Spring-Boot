@@ -8,6 +8,4 @@ import java.util.List;
 public interface BookServiceHandler
 {
     BookResponseDTO createBook(BookRequestDTO bookRequestDTO);
-    List<BookResponseDTO> getAllBooks();
-
 }
