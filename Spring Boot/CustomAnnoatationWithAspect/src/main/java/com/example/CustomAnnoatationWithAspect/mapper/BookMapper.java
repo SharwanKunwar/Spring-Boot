@@ -1,16 +1,17 @@
-package com.practice.CustomAnnoatation.mapper;
+package com.example.CustomAnnoatationWithAspect.mapper;
 
-import com.practice.CustomAnnoatation.dtos.BookRequestDTO;
-import com.practice.CustomAnnoatation.dtos.BookResponseDTO;
+import com.example.CustomAnnoatationWithAspect.dtos.BookRequestDTO;
+import com.example.CustomAnnoatationWithAspect.dtos.BookResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BookMapper
 {
+    // Request to response
     public BookResponseDTO toResponse(BookRequestDTO bookRequestDTO){
         return BookResponseDTO.builder()
                 .title(bookRequestDTO.getTitle())
-                .description(bookRequestDTO.getDescription())
+                .author(bookRequestDTO.getAuthor())
                 .price(bookRequestDTO.getPrice())
                 .build();
     }

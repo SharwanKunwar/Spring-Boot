@@ -1,18 +1,17 @@
-package com.practice.CustomAnnoatation.dtos;
+package com.example.CustomAnnoatationWithAspect.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-
 import java.math.BigDecimal;
 
 @Data
-@Builder
 @AllArgsConstructor
-public class BookResponseDTO
+@Builder
+public class BookRequestDTO
 {
     private String title;
-    private String description;
+    private String author;
     private BigDecimal price;
 }
