@@ -26,4 +26,12 @@ public class LoggingAspect {
 
         return result;
     }
+
+    @Around("@annotation(com.example.CustomAnnoatationWithAspect.customAnnotations.Greeting)")
+    public void greet(ProceedingJoinPoint joinPoint) throws Throwable
+    {
+        System.out.println("Hi");
+        Object result = joinPoint.proceed(); // Executes the target method
+        System.out.println("Bye");
+    }
 }

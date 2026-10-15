@@ -1,5 +1,6 @@
 package com.example.CustomAnnoatationWithAspect.service.implementation;
 
+import com.example.CustomAnnoatationWithAspect.customAnnotations.Greeting;
 import com.example.CustomAnnoatationWithAspect.customAnnotations.TrackResponseTime;
 import com.example.CustomAnnoatationWithAspect.dtos.BookRequestDTO;
 import com.example.CustomAnnoatationWithAspect.dtos.BookResponseDTO;
@@ -30,10 +31,12 @@ public class BookService implements BookServiceHandler
         return response;
     }
 
+    @Greeting
     @Override
     public String getBook()
     {
         String book = "Math";
+        System.out.println(book);
         return book;
     }
 
