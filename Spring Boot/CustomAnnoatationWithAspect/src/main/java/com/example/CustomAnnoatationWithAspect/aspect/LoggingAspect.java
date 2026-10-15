@@ -19,10 +19,7 @@ public class LoggingAspect {
 
         long endTime = System.currentTimeMillis();
 
-        System.out.println(
-                "Method: " + joinPoint.getSignature().getName()
-                        + " | Execution Time: " + (endTime - startTime) + " ms"
-        );
+        System.out.println("Method: " + joinPoint.getSignature().getName() + " | Execution Time: " + (endTime - startTime) + " ms");
 
         return result;
     }
@@ -30,9 +27,9 @@ public class LoggingAspect {
     @Around("@annotation(com.example.CustomAnnoatationWithAspect.customAnnotations.Greeting)")
     public Object greet(ProceedingJoinPoint joinPoint) throws Throwable
     {
-        System.out.println("Hi");
+        System.out.println("Hi i'm intercepting '"+joinPoint.getSignature().getName()+"'");
         Object result = joinPoint.proceed(); // Executes the target method
-        System.out.println("Bye");
+        System.out.println("Bye i'm done intercepting '"+joinPoint.getSignature().getName()+"'");
         return result;
     }
 }
