@@ -1,5 +1,6 @@
 package com.example.CustomAnnoatationWithAspect.service.implementation;
 
+import com.example.CustomAnnoatationWithAspect.customAnnotations.TrackResponseTime;
 import com.example.CustomAnnoatationWithAspect.dtos.BookRequestDTO;
 import com.example.CustomAnnoatationWithAspect.dtos.BookResponseDTO;
 import com.example.CustomAnnoatationWithAspect.mapper.BookMapper;
@@ -14,6 +15,8 @@ public class BookService implements BookServiceHandler
 {
     private final BookMapper bookMapper;
 
+
+    @TrackResponseTime
     @Override
     public BookResponseDTO createBook(BookRequestDTO bookRequestDTO)
     {
@@ -25,6 +28,13 @@ public class BookService implements BookServiceHandler
         System.out.println("------------------- SERVICE LAYER END -------------------\n");
         BookResponseDTO response = bookMapper.toResponse(bookRequestDTO);
         return response;
+    }
+
+    @Override
+    public String getBook()
+    {
+        String book = "Math";
+        return book;
     }
 
 }

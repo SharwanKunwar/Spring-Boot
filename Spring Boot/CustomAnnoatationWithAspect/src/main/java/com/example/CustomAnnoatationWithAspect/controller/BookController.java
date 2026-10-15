@@ -25,4 +25,10 @@ public class BookController
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createBook(bookRequestDTO));
     }
 
+    // get book
+    public ResponseEntity<String> getBook()
+    {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getBook());
+    }
+
 }
