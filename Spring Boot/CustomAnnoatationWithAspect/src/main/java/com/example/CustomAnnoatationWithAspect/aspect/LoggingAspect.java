@@ -1,5 +1,6 @@
 package com.example.CustomAnnoatationWithAspect.aspect;
 
+import com.example.CustomAnnoatationWithAspect.customAnnotations.Greeting;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -24,8 +25,19 @@ public class LoggingAspect {
         return result;
     }
 
-    @Around("@annotation(com.example.CustomAnnoatationWithAspect.customAnnotations.Greeting)")
-    public Object greet(ProceedingJoinPoint joinPoint) throws Throwable
+//    @Around("@annotation(com.example.CustomAnnoatationWithAspect.customAnnotations.Greeting)")
+//    public Object greet(ProceedingJoinPoint joinPoint) throws Throwable
+//    {
+//        System.out.println("Hi i'm intercepting '"+joinPoint.getSignature().getName()+"'");
+//        Object result = joinPoint.proceed(); // Executes the target method
+//        System.out.println("Bye i'm done intercepting '"+joinPoint.getSignature().getName()+"'");
+//        return result;
+//    }
+
+
+    //Binding form
+    @Around("@annotation(greeting)")
+    public Object greet(ProceedingJoinPoint joinPoint, Greeting greeting) throws Throwable
     {
         System.out.println("Hi i'm intercepting '"+joinPoint.getSignature().getName()+"'");
         Object result = joinPoint.proceed(); // Executes the target method
