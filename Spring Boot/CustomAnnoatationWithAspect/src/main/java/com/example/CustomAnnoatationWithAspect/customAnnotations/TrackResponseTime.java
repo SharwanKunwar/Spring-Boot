@@ -1,6 +1,8 @@
 package com.example.CustomAnnoatationWithAspect.customAnnotations;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
@@ -22,7 +24,10 @@ import java.lang.annotation.Target;
  * - Detect slow methods.
  */
 @Target({ElementType.FIELD, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
 public @interface TrackResponseTime
 {
     // Marker annotation: no attributes; its presence identifies an element.
+    long warnAfter() default 1000;
+    String operation() default "";
 }

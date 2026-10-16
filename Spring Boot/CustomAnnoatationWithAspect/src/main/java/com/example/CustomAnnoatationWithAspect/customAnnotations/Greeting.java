@@ -32,6 +32,8 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Greeting
 {
     // Marker annotation: no attributes; its presence identifies an element.
+    long warnAfter() default 2000;
+    String operation() default "";
 }
 
 

@@ -17,10 +17,15 @@ public class BookService implements BookServiceHandler
     private final BookMapper bookMapper;
 
 
-    @TrackResponseTime
+    @TrackResponseTime(warnAfter = 1000, operation = "Create Book")
     @Override
     public BookResponseDTO createBook(BookRequestDTO bookRequestDTO)
     {
+        try{
+            Thread.sleep(2000);
+        }catch (InterruptedException e){
+
+        }
         System.out.println("------------------- SERVICE LAYER STARTED-------------------");
         System.out.println("Title "+bookRequestDTO.getTitle());
         System.out.println("Author "+bookRequestDTO.getAuthor());
@@ -31,10 +36,13 @@ public class BookService implements BookServiceHandler
         return response;
     }
 
-    @Greeting
+    @Greeting(warnAfter = 1500, operation = "Get Book")
     @Override
     public String getBook()
     {
+        try{
+            Thread.sleep(2000);
+        }catch (InterruptedException e){}
         String book = "Math";
         System.out.println(book);
         return book;
