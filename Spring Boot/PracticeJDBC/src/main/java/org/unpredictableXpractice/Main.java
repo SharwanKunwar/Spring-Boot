@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.SQLException;
 
-public class Main {
-    public static void main(String[] args) throws SQLException {
+public class Main
+{
+    static void main(String[] args) throws SQLException
+    {
         String url = "jdbc:postgresql://localhost:5432/jdbc_practice";
         String username = "postgres";
         String password = "9814631974";
@@ -19,11 +21,13 @@ public class Main {
             )
             """;
 
-        try (Connection con = DriverManager.getConnection(url, username, password);
-             Statement stmt = con.createStatement())
-        {
-            stmt.executeUpdate(sql);
-            System.out.println("Student table created successfully!");
+        try{
+            Connection conn = DriverManager.getConnection(url, username, password);
+            System.out.println("Connected to database successfully");
+            conn.close();
+        }catch (Exception e){
+            System.out.println("Failed to connect to database");
+            e.printStackTrace();
         }
     }
 }
