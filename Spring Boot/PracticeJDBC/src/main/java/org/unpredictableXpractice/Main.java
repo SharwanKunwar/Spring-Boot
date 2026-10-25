@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class Main
 {
-    static void main(String[] args) throws SQLException
+    static void main(String[] args)
     {
         String url = "jdbc:postgresql://localhost:5432/jdbc_practice";
         String username = "postgres";
