@@ -17,7 +17,7 @@ public class StudentRepository
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
             String query = "INSERT INTO students (name, age) VALUES ('Sharwan Jung Kunwar', 22)";
-            statement.executeUpdate(query);
+            int result = statement.executeUpdate(query);
 
             connection.close();
 
