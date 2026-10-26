@@ -3,6 +3,7 @@ package org.unpredictableXpractice.repository;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class StudentRepository
 {
@@ -14,7 +15,7 @@ public class StudentRepository
     {
         try{
             Connection connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Connected to database successfully");
+            Statement statement = connection.createStatement();
 
             connection.close();
 
