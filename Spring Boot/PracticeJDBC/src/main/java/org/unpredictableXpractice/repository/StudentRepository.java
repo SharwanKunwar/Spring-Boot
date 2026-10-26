@@ -16,8 +16,14 @@ public class StudentRepository
         try{
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
-            String query = "INSERT INTO students (name, age) VALUES ('Sharwan Jung Kunwar', 22)";
+            String query = "INSERT INTO student (name, age) VALUES ('Sharwan Jung Kunwar', 22)";
             int result = statement.executeUpdate(query);
+
+            if(result == 1){
+                System.out.println("Student created successfully");
+            }else {
+                System.out.println("Failed to create student");
+            }
 
             connection.close();
 
