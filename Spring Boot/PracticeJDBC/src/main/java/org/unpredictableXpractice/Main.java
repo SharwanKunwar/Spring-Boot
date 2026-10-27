@@ -8,7 +8,7 @@ public class Main
     static void main(String[] args)
     {
         StudentRepository studentRepository = new StudentRepository();
-        studentRepository.create();
+        studentRepository.getStudentById();
 
     }
 }
