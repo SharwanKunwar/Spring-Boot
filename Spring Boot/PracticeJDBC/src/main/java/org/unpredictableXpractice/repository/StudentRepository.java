@@ -13,11 +13,20 @@ public class StudentRepository
 
     public void create()
     {
-        try{
+        try(){
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
+
+
             String query = "INSERT INTO student (name, age) VALUES ('Sharwan Jung Kunwar', 22)";
             int result = statement.executeUpdate(query);
+
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, "Sharwan Jung Kunwar");
+            preparedStatement.setInt(2, 22);
+
+            preparedStatement.executeUpdate();
 
             if(result == 1){
                 System.out.println("Student created successfully");
@@ -33,8 +42,8 @@ public class StudentRepository
         }
     }
 
-
-    public void getStudentById(){
+    public void getStudentById()
+    {
         try{
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
@@ -55,8 +64,9 @@ public class StudentRepository
         }
     }
 
-    private Student mapRow(ResultSet resultSet) throws SQLException {
-        Student student = new Student();
+    private Student mapRow(ResultSet resultSet) throws SQLException
+    {
+        Student student = new Student("sharwan", 22);
 
         student.setId(resultSet.getObject("id", UUID.class));
         student.setName(resultSet.getString("name"));

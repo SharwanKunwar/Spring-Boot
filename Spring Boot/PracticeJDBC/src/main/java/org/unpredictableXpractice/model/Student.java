@@ -12,6 +12,15 @@ public class Student
         return id;
     }
 
+    public Student()
+    {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
     public void setId(UUID id) {
         this.id = id;
     }
