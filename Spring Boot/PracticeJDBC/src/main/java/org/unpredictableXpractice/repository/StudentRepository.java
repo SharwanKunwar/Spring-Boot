@@ -13,7 +13,7 @@ public class StudentRepository
 
     public void create()
     {
-        try(){
+        try{
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
 
